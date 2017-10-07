@@ -4,11 +4,9 @@ Nuestro objetvo final es hacer aplicaciones inteligentes que utilicen informaci�
 
 ![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/OCB/Imagenes/00SC.png)
 
-Para que nuestra aplicación pueda obtener esa información utilizaremos Orion Context Broker (OCB). Orion Context Broker es una implementación de la API NGSI (*Next Generation Service Interface Context Enabler*) que te permite manejar y asegurar la disponibilidad de la información obtenido del contexto. Una característica muy importante es que para el OCB no importa de donde se está obteniendo la información, al final, la aplicación la recibirá igual. Así, en FIWARE, toda la información que ulizaremos estará homogeneizada y podremos usarla facilmente. 
+Para que nuestra aplicación pueda obtener esa información utilizaremos Orion Context Broker (OCB). Orion Context Broker es una implementación de la API NGSI (*Next Generation Service Interface Context Enabler*) que te permite manejar y asegurar la disponibilidad de la información obtenido del contexto. 
 
-Para representar objetos de la vida real utilizaremos el modelo de entidades de la API NGSI. En éste se define: 
-
-- Un **modelo de datos** de información de contexto basado en *entidades* y en *atrbibutos*. Cada entidad representa un objeto de la vida real y puede tener atributos y metadatos. Las entidades cuentan con ID y tipo y los atributos y metadatos **deben de tener** nombre, tipo y valor. 
+Para representar objetos de la vida real utilizaremos el modelo de entidades de la API NGSI. En éste se define un **modelo de datos** de información de contexto basado en *entidades* y en *atributos*. Cada entidad representa un objeto de la vida real y puede tener atributos y metadatos. Las entidades cuentan con ID y tipo y los atributos y metadatos con nombre, tipo y valor. Todos los datos estarán representados con el formato JSON. 
 
 Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguiente entidad:
 
@@ -26,25 +24,22 @@ Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguie
 	}
 	
 
-
-- Una **interfaz de datos de contexto** (*context data interface*) para intercambiar información mediante operaciones de consulta, suscripción y actualización.
-
-- Una interfaz de disponibilidad de contexto (*context availability interface*) para intercambiar información sobre cómo obtener información de contexto.
-
 La interacción básica con el OCB consta de tres agentes: el productor de información de contexto, el context broker (CB) y el consumidor de esa información.
 
 ![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/OCB/Imagenes/ngsi.png)
 
-El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes a través del puerto 1026. También es posible que los productores de contexto reciban querys por parte del CB.   
-Los datos se mantendrán persistentes gracias al CB. Éste solamente guardará el último dato que se ingresó por lo que para poderlos almacenar usremos MongoDB.  
-El consumidor será el que obtenga la información del CB para su uso final también a través del puerto 1026. La obtención de la información se puede dar a través de querys, notificaciones o suscripciones.   
+El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes a través del puerto 1026.    
+Los datos se mantendrán persistentes gracias al CB, que además funciona como intermediario entre los otros dos agentes. Éste solamente guardará el último dato que se ingresó por lo que para poderlos almacenar usremos MongoDB.  
+El consumidor será el que obtenga la información del CB para su uso final también a través del puerto 1026. La obtención de la información se puede dar a través de consultas a la base de datos (querys)y por medio de notificaciones. 
+
+Una característica muy importante es que para el OCB no importa de donde se está obteniendo la información, al final, la aplicación la recibirá igual. Así, toda la información que ulizaremos estará homogeneizada y podremos usarla facilmente.   
 
 La interacción con el OCB la haremos a través de solicitudes HTTP con un cliente REST.
-Para poder hacerlo nececitamos especificar el URL al cual estaremos haciendo la solicitud (el URL del OCB), el método REST de la solicutud, el encabezado y el cuerpo de la solicitud.   
+Para poder hacerlo nececitamos especificar el URL al cual estaremos haciendo la solicitud, el método REST de la solicutud, el encabezado y el cuerpo de la solicitud.   
 El URL al que haremos la solicitud sera: **http://localhost:1026/v2/...**. Aquí podemos ver, como se indicaba en el diagrama, que la comunicacion se hace a través del puerto 1026 y que la versión del OCB es la 2.  
 Los métodos REST que utilizaremos son **GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE, CONNECT.**  
-El encabezado indica en que formato se estará recibiendo y enviando la información. Si la infromación será de tipo JSON se debe poner **application/json** y si será de tipo texto se debe de poner **text/plain**.
-Para referirte a el envío de información se debe de poner **Content-Type** y para la infromación que se recibe se debe de poner **Accept**.  
+El encabezado indica en que formato se estará recibiendo y enviando la información. Si la información será de tipo JSON se debe poner **application/json** y si será de tipo texto se debe de poner **text/plain**.
+Para referirse a que estarás enviando información se debe de poner **Content-Type** y para indicar que quieres recibir se debe de poner **Accept**.  
 
 Así, una solicitud quedaría de la siguiente manera: 
  
@@ -146,7 +141,7 @@ Body;
 
 ```
 localhost:1026/v2/entities/Cuarto1/attrs/temperature/value
-Método: PUT
+Método: PATCH
 Headers: Content-Type:text/plain
 Body:
 	35
