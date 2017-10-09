@@ -2,11 +2,12 @@
 
 Nuestro objetvo final es hacer aplicaciones inteligentes que utilicen información obtenida de diferentes medios como sensores, usuarios de dispositivos móviles, etéctera. 
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/OCB/Imagenes/00SC.png)
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/00SC.png)
 
 Para que nuestra aplicación pueda obtener esa información utilizaremos Orion Context Broker (OCB). Orion Context Broker es una implementación de la API NGSI (*Next Generation Service Interface Context Enabler*) que te permite manejar y asegurar la disponibilidad de la información obtenido del contexto. 
 
-Para representar objetos de la vida real utilizaremos el modelo de entidades de la API NGSI. En éste se define un **modelo de datos** de información de contexto basado en *entidades* y en *atributos*. Cada entidad representa un objeto de la vida real y puede tener atributos y metadatos. Las entidades cuentan con ID y tipo y los atributos y metadatos con nombre, tipo y valor. Todos los datos estarán representados con el formato JSON. 
+Para representar objetos de la vida real utilizaremos el modelo de entidades de la API NGSI. En éste se define un **modelo de datos** de información de contexto basado en *entidades* y en *atributos*. Cada entidad representa un objeto de la vida real y puede tener atributos y metadatos. Las entidades cuentan con ID y tipo y los atributos y metadatos con nombre, tipo y valor. Todos los datos estarán representados con el formato JSON.  
+Los metadatos son infromación de los atributos y se ponen con la misma estructura. 
 
 Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguiente entidad:
 
@@ -16,6 +17,7 @@ Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguie
 		"temperature": {
 			"type": "Float",
 			"value": 23,
+			"metadata":{}
 		},
 		"pressure":{
 			"type":"Integer",
@@ -26,7 +28,7 @@ Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguie
 
 La interacción básica con el OCB consta de tres agentes: el productor de información de contexto, el context broker (CB) y el consumidor de esa información.
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/OCB/Imagenes/ngsi.png)
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/ngsi.png)
 
 El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes a través del puerto 1026.    
 Los datos se mantendrán persistentes gracias al CB, que además funciona como intermediario entre los otros dos agentes. Éste solamente guardará el último dato que se ingresó por lo que para poderlos almacenar usremos MongoDB.  
@@ -34,6 +36,40 @@ El consumidor será el que obtenga la información del CB para su uso final tamb
 
 Una característica muy importante es que para el OCB no importa de donde se está obteniendo la información, al final, la aplicación la recibirá igual. Así, toda la información que ulizaremos estará homogeneizada y podremos usarla facilmente.   
 
+### Configuración de la máquina virtual
+Se requiere tener instalado en la computadora:
+	
+* VirtualBox
+* SSH
+* Vagrant 1.9.0
+* Git
+* Insomnia
+
+
+Vagrant es un versionador de máquinas virtuales con lo cual es muy fácil comenzar a hacer uso de ellas. 
+Con esta herramienta crearemos una máquina virtual con el sistema operativo CentOs dentro del cual se instalará también docker, MongoDB y OCB. 
+Para poder instalar la máquina virtual en nuestra computadora haremos los siguientes pasos:
+
+```
+# Utilizando la terminal. 
+	#### Set up
+	# crear carpeta
+	mkdir curso
+	# cambiar de directorio
+	cd curso
+	# bajar estructura de las máquinas virtuales
+	git clone https://github.com/CarlosUrteaga/Fiware.git
+	# Cambiar a directorio Fiware
+	cd Fiware
+	cd vm-fiware-orion
+	# iniciar máquina virtual de Orion
+	vagrant up
+	# conectar a máquina virutal por medio de SSH
+	vagrant ssh
+	#iniciar docker de OCB
+	docker-compose up
+```
+###Interactuando con OCB
 La interacción con el OCB la haremos a través de solicitudes HTTP con un cliente REST.
 Para poder hacerlo nececitamos especificar el URL al cual estaremos haciendo la solicitud, el método REST de la solicutud, el encabezado y el cuerpo de la solicitud.   
 El URL al que haremos la solicitud sera: **http://localhost:1026/v2/...**. Aquí podemos ver, como se indicaba en el diagrama, que la comunicacion se hace a través del puerto 1026 y que la versión del OCB es la 2.  
@@ -60,93 +96,127 @@ Body:
 
 
 
-Utilizaremos el ejemplo del cuarto antes mencionado para demostrar como se hacen las diferentes solicitudes.  
+  
+Para poder interactuar con OCB utilizaremos *insomnia*.  
+Crearemos en insomnia una carpeta llamada **Operaciones-Comunes**. En esta carpeta se guardarán todas las consultas que hagamos. 
+
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-01.png)
+
+####POST
 En primer lugar hay que **crear** la entidad con el método **POST**:
+Comenzaremos por crear una nueva petición en Insomnia
+
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-02.png)
+
+El nombre sugerido para esta petición es **inserta-entidad**, el método que utilizaremos será **PUT** y el body será de tipo JSON.
+
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-03.png)  
+
+Como habíamos mencionado antes nuestras peticiones se conforman por tres partes.  
+En este caso el URL que utilizaremos será **http://localhost:1026/v2/entities**, el header se pone automaticamente cuando seleccionamos JSON como el tipo de dato y en el body pondremos:
 
 ```
-localhost:1026/v2/entities
-Método: POST
-Headers: Content-Type:application/json
-Body:
 {
-		"id": "Cuarto1"
-		"type": "Cuarto"
-		"temperature": {
-			"type": "Float",
-			"value": 23,
-		},
-		"pressure":{
-			"type":"Integer",
-			"value": 720
-		}
+		"id": "lugar01",
+		"type": "ParkingSpot",
+		"floor" :{
+			"value":"PB",
+			"type":"text"
+	    },
+		"name" :{
+			"value":"A-13"
+	    },
+		"status" :{
+			"value":"libre"
+	    }
 	}
 ```
+	
+#### GET
 Para **obtener** todas las entidades que tenemos guardadas usaremos el método **GET**:
 
 ```
 localhost:1026/v2/entities
 Método: GET
-Headers: Content-Type:application/json
 ```
-Nuestra búsqueda puede ser más refinada gracias al uso de **filtros**, podemos por ejemplo:
+En este caso no se especifican ni el body ni Content-type.  
+No obstante si se está consultando un OCB en la nube, será necesario agregar en el campo X-Auth-Token el token que les fue asignado.
 
- - Buscar una entidad por medio de su ID, para lo cual tenemos que poner **/{id}** al final de nuestro URL.
+```
+Headers X-Auth-Token	1O11Qj4FReeHTs0Rb5hVLYwKNHFbbu
+```
+Podemos también buscar una entidad en específico por medio de su ID, para lo cual tenemos que poner **/{id}** al final de nuestro URL.
 
-  ```
-localhost:1026/v2/entities/Cuarto1
+```
 Método: GET
-Headers: Content-Type:application/json
+{url}:1026/v2/entities/{id}
+```
+Así:
+
+```
+localhost:1026/v2/entities/lugar01
+Método: GET
 ```
 
- - Podemos agregar filtros a nuestra búsqueda de dos maneras. La primera es poniendo al final del URL un "?" y después de eso el filtro que queremos y el valor que estamos buscando. La segunda manera es poner al final del URL "/" el filtro y "/" el valor:
- 
-```
-Para la primera manera:	 
-localhost:1026/v2/entities/Cuarto1?attrs=temperature
-Método: GET
-Headers: Content-Type:application/json  
-
-Para la sgunda manera: 
-localhost:1026/v2/entities/Cuarto1/attrs/temperature
-Método: GET
-Headers: Content-Type:application/json
-
-
-``` 
-Obteniendo en ambos casos los valores que se encuentran dentro del atributo de temperatura.
-  
-
+#### PUT y PATCH  
 Podemos también **actualizar** una entidad.   
-Una nueva convención a surgido para diferencias los dos métodos existentes para actualizar. Si queremos actualizar una parte de la entidad se debe utilizar el método **PATCH** y si se quiere actalizar la entidad completa se debe de utilizar el método **PUT**, teniendo en cuenta que si no se especifican algunos atributos éstos deberían colocarse en nulo. En realidad muchas de las aplicaciones no toman en cuenta esta distinción y utilizan el método PUT como un sinónimo del método PATCH pero es importante conocer la diferencia
-Así tenemos: 
+Una nueva convención a surgido para diferenciar los dos métodos existentes para actualizar. Si queremos actualizar una parte de la entidad se debe utilizar el método **PATCH** y si se quiere actalizar la entidad completa se debe de utilizar el método **PUT**, teniendo en cuenta que si no se especifican algunos atributos éstos deberían colocarse en nulo. En realidad muchas de las aplicaciones no toman en cuenta esta distinción y utilizan el método PUT como un sinónimo del método PATCH pero es importante conocer la diferencia.
 
 ```
-localhost:1026/v2/entities/Cuarto1
+Método: PUT
+{url}:1026/v2/entities/{id}
+```
+```
+Método: PATCH
+{url}:1026/v2/entities/{id}/attrs/{value}/value
+```
+Así tenemos:
+
+```
+localhost:1026/v2/entities/lugar01
 Método: PUT
 Headers: Content-Type:application/json
 Body;
 {
-		"id": "Cuarto1"
-		"type": "Cuarto"
-		"temperature": {
-			"type": "Float",
-			"value": 35,
-		},
-		"pressure":{
-			"type":"Integer",
-			"value": 720
-		}
+		"id": "lugar01",
+		"type": "ParkingSpot",
+		"floor" :{
+			"value":"PB",
+			"type":"text"
+	    },
+		"name" :{
+			"value":"A-13"
+	    },
+		"status" :{
+			"value":"ocupado"
+	    }
 	}
 ```
 
 ```
-localhost:1026/v2/entities/Cuarto1/attrs/temperature/value
+localhost:1026/v2/entities/lugar01/attrs/status/value
 Método: PATCH
 Headers: Content-Type:text/plain
 Body:
-	35
+	"ocupado"
 ```
-En ambos casos cambiando el valor de la temperatura del cuarto por 35.
+En ambos casos cambiando el valor de status por ocuapado. 
+
+#### Delete
+Este comando eliminará atributos y entidades. 
+Para borrar una entidad se utiliza a siguiente expresión: 
+
+```
+{url}:1026/v2/entities/{id}
+Método: DELETE
+```
+
+Y para borrar un atributo:
+
+```
+{url}:1026/v2/entities/{id}/attrs/{value}
+Método: DELETE
+```
 
 
 Estas son las bases para hacer una aplicación que reciba su infromación de forma síncrona, pero el OCB tiene la capacidad de entregar información de fomra asincrona.
@@ -190,212 +260,19 @@ Body:
 		"throttling":5
 	}
 ```
-## Sesión práctica
 
-### Creación de una instancia en Orion Context Broker.
-En este tutorial se creará una instancia del OCB en una máquina virtual.
-
-Infotec está tratando de definir un proceso, de meter algo de orden para desarrollar esto.  (forma de levantar requerimientos, la forma de modelar, etc).
-
-#### Programas requeridos
-
-* VirtualBox
-* SSH
-* Vagrant 1.9.0
-* Git
-
-Vamos a crear una VM con CentOs con docker y ahí vamos a hacer un contenedor de Orion, y otro para MongoDB
-
-El flujo básico es:
-
-Usuario -> vagrant -> virtualbox que tiene Orion y docker
-
-Vagrant toma imágenes de un repositorio centralizado (Atlas)
-Con vagrant se están “versionando” infraestructuras. Muy en el mundo de DevOps.
-
-Lo cómodo de vagrant es que se configura el ambiente con un archivo muy sencillo (`.Vagrant`). 
-
-(Para copiar los comandos: `https://codeshare.io/5X8egM`)
-
-### Configuración de la máquina virtual
-Ubicar dónde se encuentra el archivo Vagrant y ejecutar:
-
-```bash
-git clone https://github.com/danimaniarqsoft/fiware-lab.git
-vagrant up
-vagrant ssh
-```
-Con el último comando entramos a la VM de Orion.
-
-Nos va a interesar trabajar con docker para crear todo en un contenedor.  En primer lugar, es más ligero que la VM y en segundo nos permite reutilizar componentes más fácilmente.
-
-FIWARE tiene casi todos los objetos en dockers.  Para instalar docker en la VM creada ejecutar:
-
-```bash
-sudo yum -y check-update
-sudo yum -y install vim
-curl -fsSL https://get.docker.com/ | sh
-sudo usermod -aG docker vagrant
-curl https://gist.githubusercontent.com/danimaniarqsoft/177b6c8cb579f0cac87b8d13d74e886c/raw/cdbdd584defb996b570ec068388405ec2f017741/docker-compose.yml > docker-compose.yml
-
-sudo yum -y install docker
-
-sudo systemctl start docker
-sudo systemctl status docker
-sudo systemctl enable docker
-
-sudo usermod –aG docker vagrant
-```
-
-Ahora hay que install dockers-composed:
-
-```bash
-sudo yum install -y epel-release
-sudo yum install -y python-pip
-sudo pip install --upgrade pip
-sudo pip install backports.ssl_match_hostname --upgrade
-sudo pip install docker-compose
-sudo yum -y upgrade python*
-```
-En `https://hub.docker.com/r/fiware/orion/` está todo lo de Orion desarrollado por Telefónica.
-
-En el archivo **docker.compose.yml** vemos que tenemos Orion y mongoDB y ahí se define cómo se comunican entre ellos. Hay que lanzar el docker desde la carpeta donde está ese archivo.
-
-```bash
-docker-compose up
-```
-Si no funciona es porque docker todavía no está en groups (`sudo usermod…`) En ese caso, hay que salirse y volver a entrar.
-
-Al hacer el docker up se tarda mucho porque aquí sí está descargando las instancias y todos los elementos necesarios para crear el ambiente.
-
-En el tutorial, la IP del OCB es 192.168.83.3, como se indicó en el archivo de vagrant.  Si accedemos a través de un navegador web, en el **puerto 1026**, podriamos ver la estructura JSON de Orion
-
-[192.168.83.3:1026/version] (192.168.83.3:1026/version)
-
-A veces tenemos problemas para volver a levantar la VM con los comandos por acceso a la IP.  Para resolver eso, simplemente correrla desde virtual box.
-
-(Se hizo otra VM con port forwarding.  Para usarla, entramos a la carpeta vm-fiware-orion, matamos la VM con `vagrant destroy`, luego se hizo `git pull` desde fiware-lab para bajar nueva VM (vm-fiware-orion-forwarding), e hicimos nuevamente `vigrant up, vagrant ssh`).
-
-##Interactuando con OCB
-La interacción con el Orion Context Broker requiere de un cliente REST.  Utilizaremos *insomnia*, una aplicación muy sencilla y amigable.
-
-(Si no se pudo instalar la vm, podemos solicitar un token para interactuar con el ocb que está en fiware-lab que levantó Infotec).
-
-Para usar nombres simbólicos, conviene modificar el archivo hosts:
-
-```bash
-/etc/host
-
-	192.168.83.2    consumer.fiware.infotec.mx
-	192.168.83.3    orion.fiware.infotec.mx
-```	
-En Windows este archivo está en `C:\Windows\System32\drivers\etc\hosts`
-
-En Insomnia estaremos creando distintos espacios de trabajo (distintas carpetas) para las secuencias de ejercicios que estaremos desarrollando.
-
-En el cliente de Insomnia se van guardando las peticiones que vamos haciendo.
-
-Recordemos que en NGSI se tienen entidades con atributos y metadata.  
-
-- Entity tiene id y type
-- Attributes tiene name, type y value
-- Metadata tiene name, type y value
-
-Esto se va a definir con JSON (también podría definirse en XML) y así se armarán las solicitudes REST.
-
-Como context-type sólo vamos a usar Application/json y text/plain.  Es lo único que se puede usar en NGSI.
-
-Las operaciones comunes son:
-
-- GET /v2/entities  (a fuerza en plural)
-- POST /v2/entitites
-- GET /vs/entities/{entityID}
-
-##### POST
-Empecemos por crear un nuevo folder en Insomnia (llamémoslo, por ejemplo, Operaciones-comunes) e introducir ahí una nueva solicitud para subir una entidad.  Llamémosla *put-entity*.
-
-Esta solicitud usará el comando POST. La estructura es:
-
-```html
-En el campo de URL se pone la dirección donde se encuentra el OCB
-Content-type/json
-
-Body:
-{
-	"id":"Room-infotec-cd-MX-jaid-1",
-	"type":"Room",
-	"temperature": {
-		"value":"23"
-	},
-	"pressure":{
-		"value": 43
-	}
-}
-```
-Es muy importante que el **ID/type** sea único.
-Para los campos de atributos, muchas veces se puede inferir el tipo a partir del valor, pero es una buena práctica incluir el tipo de dato (type).
+ 
 
 
-##### GET
-Hagamos una solicitud para leer las entidades.
-Podemos duplicar la consulta anterior y renombrarla, por ejemplo, como *get-all-entitires*.  
 
-Sólo se especifica el URL, sin body ni Content-type.  Por cierto, si se está consultando un OCB en la nube, se agrega en el campo X-Auth-Token el token que nos fue asignado:
 
-```html
-    get url   http://orion.lab.fiware.org:1026/v2/entities
-	headers X-Auth-Token	1O11Qj4FReeHTs0Rb5hVLYwKNHFbbu
-```
 
-Para consultar una sola entidad, el URL se especifica con el ID:
 
-```html
-    http://orion.lab.infotec.org:1026/v2/entities/Room-infotec-cd-MX-jaid-3
-```
 
-(De paso, se puede observar que se agregó automáticamente un tipo para cada valor.  En nuestro ejemplo, se dedujo que era numérico.  En cambio, en metadata lo dejó vacío).
+##################
 
-Para borrar una entidad, utilizamos el comando **Delete**:
 
-```html
-    delete url /entities/{id}
-```
 
-###Más operaciones
-A partir de la versión 2 de NGSI es posible realizar operaciones con sólo un elemento ampliando el URL:
-
-```
-	get url /v2/entities/{entityID}/attrs/{attrName}
-	put url /v2/entities/{entityID}/attrs/{attrName}
-	delete url /v2/entities/{entityID}/attrs/{attrName}
-	get url /v2/entities/{entityID}/attrs/{attrName}/value
-	put url /v2/entities/{entityID}/attrs/{attrName}/value
-```
-### Actualización de valores
-
- Si queremos actualizar valores, sólo es necesario especificar en el URL de qué entidad se trata y en el Body mandar el JSON con valores correspondientes:
-
-```html
-http://orion.lab.infotec.org:1026/v2/entities/Room-infotec-cd-MX-jaid-3/attrs
-{
-	"temperature": {
-		"value":"230"
-	},
-	"pressure":{
-		"value": 432
-	}
-}
-```
-Más aún, conviene minimizar el payload (el Body) porque en IoT es de esperar que se envíen muchos datos. Para ello, se puede ampliar el URL hasta el campo valor y agregar únicamente el valor en el Body.  En este caso, el Content-type es text/plain
-
-    http://192.168.83.3:1026/v2/entities/Room-infotec-cd-MX-jaid-2/attrs/temperature/value
-    Content-Type  text/plain
-    
-    Body:   23.0
-
-Puede haber ambigüedad, por ejemplo porque tengo mismo ID de objeto (room1) pero con dos tipos distintos (roomHome, roomOffice).  Para quitar ambigüedad, agrego info al query:
-
-    http://192.168.83.3:1026/v2/entities/Room-infotec-cd-MX-jaid-3/attrs?type=Room
 
 ### Metadatos
 Los metadatos se agregan en la nueva versión de NGSI. Simplemente se pone información adicional con la misma estructura.  Por ejemplo, para temperatura, se podría agregar algo así:
