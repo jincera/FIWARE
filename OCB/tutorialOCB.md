@@ -17,7 +17,12 @@ Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguie
 		"temperature": {
 			"type": "Float",
 			"value": 23,
-			"metadata":{}
+			"metadata":{
+				“precision”: {
+    				“type”:xxx,
+  					“value”: xxx
+				}
+			}
 		},
 		"pressure":{
 			"type":"Integer",
@@ -217,51 +222,372 @@ Y para borrar un atributo:
 {url}:1026/v2/entities/{id}/attrs/{value}
 Método: DELETE
 ```
-
-
-Estas son las bases para hacer una aplicación que reciba su infromación de forma síncrona, pero el OCB tiene la capacidad de entregar información de fomra asincrona.
-Esto se logra gracias a las suscripciones, las cuales envian una notificación asincrona al consumidor de información cuando se de un "evento". 
-La suscripción está compuesta por 4 partes:
-
- - El tópico (subject) el cual tiene la entidad a la que quieres suscribirte, la condición y, dentro de ésta, el o los atributo que, al cambiar, provocarán el envío de la notificación. Puede cambiar uno o varios de los atributos de esta lista para provocar el envío de la notificación.  La lista puede estar vacía lo cual indicara que con el cambio de cualquiera de los atributos de la entidad se enviará la notificación.  
- - La notificación la cual contiene la dirección a la cual se enviará la notificaión y los atributos que se enviarán. 
- - La fecha en la que la suscripción terminará, la cual se puede escribir con el formato estándar de la ISO 8601.
- - El tiempo de espera (trhottling) para envíar una nueva notificación. 
-
-
-Si por ejemplo quisieramos suscribirnos a un cambio de la presión en nuestro Cuarto1 y recibir la temperatura del mismo debemos hacer la suscripción de la siguiente manera: 
+##OCB Query Language
+También podemos hacer consultas con filtros para encontrar infromación más específica. 
+Para comenzar poblaremos la base de datos con una petición POST y los siguientes datos:
+El url que debemos utilisar es 
+```
+http://localhost:1026/v2/op/update
+``` 
+ya que vamos a introducir varias entidades a la vez. Podríamos tambien hacer una petición POST por cada una de las entidades pero es más fácil así. 
 
 ```
-localhost:1026/v2/suscriptions
-Body:
+{
+	"actionType":"APPEND",
+	"entities":[
 	{
-		"subject":{
-			"entities":[
-			 	{
-			 		"id":"Cuarto1",
-			 		"type":"Cuarto"
-			 	}
-			 ],
-			 "condition": {
-			 	"attrs":[
-			 		"pressure"
-			 	]
-			 }
+		"id": "CampusA01",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-01"
 		},
-		"notification":{
-			"http":{
-				"url":"http://localhost:1028/accumulate"
-			},
-			"attrs":[
-				"temperature"
-			]
+		"floor" :{
+			"value":"PB"
 		},
-		"expires":"2040-01-01T14:00:00.00Z",
-		"throttling":5
+		"status" :{
+			"value":"libre"
+		}
+	},
+	{
+		"id": "CampusA02",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-02"
+		},
+		"floor" :{
+			"value":"PB"
+		},
+		"status" :{
+			"value":"libre"
+		}
+	},
+	{
+		"id": "CampusA13",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-11"
+		},
+		"floor" :{
+			"value":"PA"
+		},
+		"status" :{
+			"value":"libre"
+		}
+	},
+	{
+		"id": "CampusB01",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-01"
+		},
+		"floor" :{
+			"value":"PB"
+		},
+		"status" :{
+			"value":"ocupado"
+		}
+	},
+	{
+		"id": "CampusB02",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-02"
+		},
+		"floor" :{
+			"value":"PB"
+		},
+		"status" :{
+			"value":"ocupado"
+		}
+	},
+	{
+		"id": "CampusB13",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"B-13"
+		},
+		"floor" :{
+			"value":"PA"
+		},
+		"status" :{
+			"value":"desconocido"
+		}
+	},
+	{
+		"id": "CampusC01",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-01"
+		},
+		"floor" :{
+			"value":"PB"
+		},
+		"status" :{
+			"value":"ocupado"
+		}
+	},
+	{
+		"id": "CampusC02",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"A-02"
+		},
+		"floor" :{
+			"value":"PB"
+		},
+		"status" :{
+			"value":"ocupado"
+		}
+	},
+	{
+		"id": "CampusC13",
+		"type": "ParkingSpot",
+		"name" :{
+			"value":"B-11"
+		},
+		"floor" :{
+			"value":"PA"
+		},
+		"status" :{
+			"value":"desconocido"
+		}
 	}
+	]
+}
 ```
 
+Crearemos una petición con el método GET y el URL que ya conocemos. En insomnia hay una pestaña llamada "Query", en esta pestaña podemos poner el nombre y el valor de lo que estamos buscando y automaticamente lo agrega a nuestro URL. Si, por ejemplo, quisieramos buscar una entidad con id ```CampusB13```se vería así: 
  
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-04.png)
+
+A partir de ahora todos los datos que se proporcionen para hacer la consulta se deben poner en esa pestaña de Insomnia. 
+
+Cuando relizamos consultas el OCB devuelve 20 elementos por defecto.
+Podemos hacer una consulta que nos devuelva más o menos elementos utilizando el parámetro ```limit ``` en el query.
+
+```
+limit = 2
+```
+
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-05.png)
+
+Al hacer las consultas, el OCB lo devuelve en el orden en el que está en la BD, por lo que, si queremos cambiar el lugar donde inicie a leer los datos podemos utilizar el parámetro ```offset```en el query.
+
+```
+offset = 3
+```
+
+Por otro lado, si no queremos recibir la infromación en formato NGSI podemos utilizar el parámetro ```options```en el query. 
+
+```
+options = keyValues
+```
+
+![]( /Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-06.png)
+
+
+Con el parámetro ```attrs```podemos obtener las propiedades que específiquemos unicamente. También, con el parámetro ```q```podemos específicar una condición para filtrar nuestra búsqueda. Así, si queremos obtener todos los lugares vacíos pero solamente su nombre, piso y estado, todo sin formato NGSI tenemos:
+
+```
+q       = status==libre
+attrs   = name,floor,status
+options = keyValues 
+```
+
+![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-07.png)
+
+## Datos geo-referenciados
+Las entidades pueden tener como atributo su ubicación (location) para resolver diferentes problemas.
+
+* Lugares de interés.
+* Servicios cercanos.
+* Notificaciones.
+
+Para poder trabajar con esto poblaremos la base de datos con lugares de interés en la Ciudad de México:
+
+```
+{
+  "actionType": "APPEND",
+	"entities": [
+		{
+			"id": "Catedral",
+			"type": "PointOfInterest",
+			"category": {
+				"type": "Text",
+				"value": "iglesia",
+				"metadata": {}
+			},
+			"location": {
+				"type": "geo:point",
+				"value": "19.435433, -99.133072",
+				"metadata": {}
+			},
+			"name": {
+				"type": "Text",
+				"value": "Catedral Metropolitana",
+				"metadata": {}
+			},
+			"postalAddress": {
+				"type": "StructuredValue",
+				"value": {
+					"addressCountry": "MX",
+					"addressLocality": "México Ciudad de México",
+					"addressRegion": "Ciudad de México"
+				}
+			}
+		 },
+       {
+			"id": "Zocalo",
+			"type": "PointOfInterest",
+			"category": {
+				"type": "Text",
+				"value": "Plaza",
+				"metadata": {}
+			},
+			"location": {
+				"type": "geo:point",
+				"value": "19.432579, -99.133287",
+				"metadata": {}
+			},
+			"name": {
+				"type": "Text",
+				"value": "Zocalo",
+				"metadata": {}
+			},
+			"postalAddress": {
+				"type": "StructuredValue",
+				"value": {
+					"addressCountry": "MX",
+					"addressLocality": "México Ciudad de México",
+					"addressRegion": "Ciudad de México"
+				}
+			}
+		},
+       {
+			"id": "PalacioNacional",
+			"type": "PointOfInterest",
+			"category": {
+				"type": "Text",
+				"value": "Edificio",
+				"metadata": {}
+			},
+			"location": {
+				"type": "geo:point",
+				"value": "19.432336, -99.131452",
+				"metadata": {}
+			},
+			"name": {
+				"type": "Text",
+				"value": "Palacio Nacional",
+				"metadata": {}
+			},
+			"postalAddress": {
+				"type": "StructuredValue",
+				"value": {
+					"addressCountry": "MX",
+					"addressLocality": "México Ciudad de México",
+					"addressRegion": "Ciudad de México"
+				}
+			}
+		},
+       {
+			"id": "BellasArtes",
+			"type": "PointOfInterest",
+			"category": {
+				"type": "Text",
+				"value": "Edificio",
+				"metadata": {}
+			},
+			"location": {
+				"type": "geo:point",
+				"value": "19.435180, -99.141207",
+				"metadata": {}
+			},
+			"name": {
+				"type": "Text",
+				"value": "Palacio de Bellas Artes",
+				"metadata": {}
+			},
+			"postalAddress": {
+				"type": "StructuredValue",
+				"value": {
+					"addressCountry": "MX",
+					"addressLocality": "México Ciudad de México",
+					"addressRegion": "Ciudad de México"
+				}
+			}
+		},
+       {
+			"id": "TorreLatino",
+			"type": "PointOfInterest",
+			"category": {
+				"type": "Text",
+				"value": "Edificio",
+				"metadata": {}
+			},
+			"location": {
+				"type": "geo:point",
+				"value": "19.433874, -99.140685",
+				"metadata": {}
+			},
+			"name": {
+				"type": "Text",
+				"value": "Torre Latino",
+				"metadata": {}
+			},
+			"postalAddress": {
+				"type": "StructuredValue",
+				"value": {
+					"addressCountry": "MX",
+					"addressLocality": "México Ciudad de México",
+					"addressRegion": "Ciudad de México"
+				}
+			}
+		}
+  ]
+}
+```
+
+Como podemos ver en los datos el atributo *"location"* es de tipo *geo:point* en donde se tiene como valores la longitud y la latitud del lugar de interés.  
+Ahora buscaremos lugares de interés que se encuentren dentro o fuera de una una figura geométrica. Para poderlo hacer usaremos la versión uno, en vez de la versión dos que hemos estado utilizando, ya que ésta usa queries de contexto.  
+Comenzaremos con los lugares de interés fuera de una circunferencia.   Para especificar el círculo con el que estaremos trabajando haremos una petición POST con los siguientes datos:
+
+```
+URL: localhost:1026/v1/queryContext
+BODY:
+{
+    "entities": [
+        {
+            "type": "PointOfInterest",
+            "isPattern": "true",
+            "id": ".*"
+        }
+    ],
+	"attributes":[
+		"location","name"
+	],
+    "restriction": {
+        "scopes": [
+            {
+                "type": "FIWARE::Location",
+                "value": {
+                    "circle": {
+                        "centerLatitude": "19.432594",
+                        "centerLongitude": "-99.133017",
+                        "radius": "50",
+						    "inverted":"true"
+                    }
+                }
+            }
+        ]
+    }
+}
+```
+
+En los datos podemos ver claramente que estamos creando un circulo, indicando el lugar en donde está ubicado su centro y el radio que tendrá. Al poner ```inverted=true``` estamos indicando que queremos los elementos que estén fuera del círculo. 
+
+
+
 
 
 
@@ -274,140 +600,9 @@ Body:
 
 
 
-### Metadatos
-Los metadatos se agregan en la nueva versión de NGSI. Simplemente se pone información adicional con la misma estructura.  Por ejemplo, para temperatura, se podría agregar algo así:
 
-	{
-		"id":"Room-infotec-cd-MX-JCUR",
-		"type":"Room",
-		"temperature" :{
-			"value":23,
-			"metadata":{
-				“precision”: {
-    				“type”:xxx,
-  					“value”: xxx
-				}
-			}
-		...
 
-##OCB Query Language
 
-Para practicar con algunos de los comandos de OCB, primero poblaremos la BD con varias entidades.  Se pueden agregar las entidades una a una con el método POST, pero también es posible enviar un conjunto de entidades especificando un APPEND con el URL update:
-
-```html
-url .../v2/op/update
-
-{
-	"actionType":"APPEND",
-	"entities":[
-	{	"id": "Bedroom1",
-		"type": "Room",
-		"temperature": {
-			"value": 27.8,
-			"type": "float"
-		},
-		"presence": {
-			"value": true,
-			"type": "boolean"
-		},
-		"status": {
-			"value": "OK",
-			"type": "string"
-		},
-		"id": "Bedroom2",
-		"type": "Room",
-		"temperature": {
-			"value": 27.8,
-			"type": "float"
-		},
-		"presence": {
-			"value": true,
-			"type": "boolean"
-		},
-		"status": {
-			"value": "OK",
-			"type": "string"
-		},
-		"id": "Kitchen",
-		"type": "Room",
-		"temperature": {
-			"value": 27.8,
-			"type": "float"
-		},
-		"presence": {
-			"value": true,
-			"Type": "boolean"
-		},
-		"status": {
-			"value": "OK",
-			"type": "string"
-		},
-		"id": "Frontdoor",
-		"type": "Door",
-		"locked": {
-			"value": false,
-			"type": "boolean"
-		},
-		"closed": {
-			"value": false,
-			"type": "boolean"
-		},
-		"id": "Backdoor",
-		"type": "Door",
-		"locked": {
-			"value": "false",
-			"type": "boolean"
-		},
-		"closed": {
-			"value": "false",
-			"type": "boolean"
-		}
-	]
-}
-```
-
-(Nota: FIWARE ya tiene un conjunto de metamodelos estandarizados, para no inventar el hilo negro.
-Buscar en Google FIWARE data models (**fiware.org/data-models**)
-Otra página muy importante es **schema.org**)
-
-#### Parametrizar una consulta
-
-Al realizar consultas, el OCB entrega únicamente 20 elementos por default.  Si se desea traler más, se agrega el parámetro `limit`al query. (En insomnia, se tiene una ventana especial para agregar los parámetros del query).
-
-También se puede especificar el ofset a partir del cual se leerán los valores.
-
-Asimismo, si no deseamos recibir la información en formato JSON, se puede especificar como opción *keyValues* como se muestra en el siguiente ejemplo:
-
-```html
-http://orion.lab.infotec.org:1026/v2/entities?limit=50&type=Room&options=keyValues
- ```
-
-Con la propiedad *attrs* en el query, podemos recibir sólo la información de las propiedades que le especifique, por ejemplo, la temperatura.  Si queremos una consulta con valores específicos, se utiliza la opción *q* y la regla deseada.  El siguiente query entregaría los elementos en los que el atributo temperatura tiene un valor de 21.
-
-```html
-.../v2/entities?q=temperature=21&attrs=temperature
- ```
-En los siguientes ejemplos se muestran consultas para un determinado tipo, para combinar varios identificadores, para elementos que coinciden con una expresión regular.
-```
-	?types=room
-	idRooms1,Room2
-	idPattern=^Room-MX-2[5-9]+|[3-9][0-9]
-
-http://orion.lab.infotec.org:1026/v2/entities/Bedroom1/attrs
-http://orion.lab.infotec.org:1026/v2/entities?id=Bedroom1,Kitchen
-
-```
-
-Los atributos virutales (para bitácoras) de *dateCreated* y *dateModified* también se pueden usar para filtrado
-
-Si no usamos formato NGSI, podemos acceder a propiedades con notación punto.
-
-```
-q=tyrePressure.frontRight > 130
-```
-Queries más sofisticadas pueden hacerse con un texto de consultas donde se especifican campos en un formato json.
-
-Para los queries sobre metadatos se utiliza la opcion **mq**. 
 
 ### Suscrpitores
 
@@ -584,60 +779,10 @@ http://orion.fiware.infotec.mx:1026/v2/subscriptions
 	"throttling": 1
 }
 ```
-## Datos geo-referenciados
-#####(8 de marzo de 2017)  
 
-Para esta sección, el equipo de Infotec recabó una serie de datos georreferenciados de edificios en el Centro de la Ciudad de México, alrededor de Bellas Artes.  Subimos estos datos a nuestro OCB para poblar la base de datos. La forma en que se hizo esto fue con un POST update:
+##(8 de marzo de 2017)  
 
 
-```html
-post http://localhost:1026/v2/op/update
-Body: json
-
-{
-  "actionType": "APPEND",
-	"entities": [
-		{
-			"id": "Church-MX-1",
-			"type": "PointOfInterest",
-			"category": {
-				"type": "Text",
-				"value": "Church",
-				"metadata": {}
-			},
-			"location": {
-				"type": "geo:point",
-				"value": "19.435433, -99.133072",
-				"metadata": {}
-			},
-			"name": {
-				"type": "Text",
-				"value": "Catedral Metropolitana",
-				"metadata": {}
-			},
-			"postalAddress": {
-				"type": "StructuredValue",
-				"value": {
-					"addressCountry": "MX",
-					"addressLocality": "México Ciudad de México",
-					"addressRegion": "Ciudad de México"
-				}
-			},
-			"source": {
-				"type": "Text",
-				"value": "http://www.arquidiocesismexico.org.mx",
-				"metadata": {}
-			}
-		},
-        ...
-```
-
-Podemos ver que la ubicación es del tipo *geo:point* que tiene como valor las coordenadas de longitud y latitud. Se pueden agregar otros datos como nombre, descripción, etc.
-
-Para ver que se cargaron las entidades, invoquémosla con un GET:
-```html
-GET localhost:1026/v2/entitites
-```
 
 Ahora vamos a buscar puntos dentro de una figura geométrica. Usaremos las API de la Versión 1, en la que se usan queries de contexto. Para especificar puntos fuera de una circunferencia, el método es POST y el body tiene lo siguiente:
 
