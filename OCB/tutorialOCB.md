@@ -369,7 +369,7 @@ Podemos hacer una consulta que nos devuelva más o menos elementos utilizando el
 limit = 2
 ```
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-05.png)
+![](Imagenes/Insomnia/In-05.png)
 
 Al hacer las consultas, el OCB lo devuelve en el orden en el que está en la BD, por lo que, si queremos cambiar el lugar donde inicie a leer los datos podemos utilizar el parámetro ```offset```en el query.
 
@@ -383,7 +383,7 @@ Por otro lado, si no queremos recibir la infromación en formato NGSI podemos ut
 options = keyValues
 ```
 
-![]( /Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-06.png)
+![]( Imagenes/Insomnia/In-06.png)
 
 
 Con el parámetro ```attrs```podemos obtener las propiedades que específiquemos unicamente. También, con el parámetro ```q```podemos específicar una condición para filtrar nuestra búsqueda. Así, si queremos obtener todos los lugares vacíos pero solamente su nombre, piso y estado, todo sin formato NGSI tenemos:
