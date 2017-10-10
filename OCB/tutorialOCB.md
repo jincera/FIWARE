@@ -2,7 +2,7 @@
 
 Nuestro objetvo final es hacer aplicaciones inteligentes que utilicen información obtenida de diferentes medios como sensores, usuarios de dispositivos móviles, etéctera. 
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/00SC.png)
+![](Imagenes/00SC.png)
 
 Para que nuestra aplicación pueda obtener esa información utilizaremos Orion Context Broker (OCB). Orion Context Broker es una implementación de la API NGSI (*Next Generation Service Interface Context Enabler*) que te permite manejar y asegurar la disponibilidad de la información obtenido del contexto. 
 
@@ -33,7 +33,7 @@ Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguie
 
 La interacción básica con el OCB consta de tres agentes: el productor de información de contexto, el context broker (CB) y el consumidor de esa información.
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/ngsi.png)
+![](Imagenes/ngsi.png)
 
 El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes a través del puerto 1026.    
 Los datos se mantendrán persistentes gracias al CB, que además funciona como intermediario entre los otros dos agentes. Éste solamente guardará el último dato que se ingresó por lo que para poderlos almacenar usremos MongoDB.  
@@ -74,7 +74,7 @@ Para poder instalar la máquina virtual en nuestra computadora haremos los sigui
 	#iniciar docker de OCB
 	docker-compose up
 ```
-###Interactuando con OCB
+### Interactuando con OCB
 La interacción con el OCB la haremos a través de solicitudes HTTP con un cliente REST.
 Para poder hacerlo nececitamos especificar el URL al cual estaremos haciendo la solicitud, el método REST de la solicutud, el encabezado y el cuerpo de la solicitud.   
 El URL al que haremos la solicitud sera: **http://localhost:1026/v2/...**. Aquí podemos ver, como se indicaba en el diagrama, que la comunicacion se hace a través del puerto 1026 y que la versión del OCB es la 2.  
@@ -105,17 +105,17 @@ Body:
 Para poder interactuar con OCB utilizaremos *insomnia*.  
 Crearemos en insomnia una carpeta llamada **Operaciones-Comunes**. En esta carpeta se guardarán todas las consultas que hagamos. 
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-01.png)
+![](Imagenes/Insomnia/In-01.png)
 
-####POST
+#### POST
 En primer lugar hay que **crear** la entidad con el método **POST**:
 Comenzaremos por crear una nueva petición en Insomnia
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-02.png)
+![](Imagenes/Insomnia/In-02.png)
 
 El nombre sugerido para esta petición es **inserta-entidad**, el método que utilizaremos será **PUT** y el body será de tipo JSON.
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-03.png)  
+![](Imagenes/Insomnia/In-03.png)  
 
 Como habíamos mencionado antes nuestras peticiones se conforman por tres partes.  
 En este caso el URL que utilizaremos será **http://localhost:1026/v2/entities**, el header se pone automaticamente cuando seleccionamos JSON como el tipo de dato y en el body pondremos:
@@ -358,7 +358,7 @@ ya que vamos a introducir varias entidades a la vez. Podríamos tambien hacer un
 
 Crearemos una petición con el método GET y el URL que ya conocemos. En insomnia hay una pestaña llamada "Query", en esta pestaña podemos poner el nombre y el valor de lo que estamos buscando y automaticamente lo agrega a nuestro URL. Si, por ejemplo, quisieramos buscar una entidad con id ```CampusB13```se vería así: 
  
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-04.png)
+![](Imagenes/Insomnia/In-04.png)
 
 A partir de ahora todos los datos que se proporcionen para hacer la consulta se deben poner en esa pestaña de Insomnia. 
 
@@ -394,7 +394,7 @@ attrs   = name,floor,status
 options = keyValues 
 ```
 
-![](/Users/carlosaburto/Documents/1.ITAM/Servicio Social/Tutoriales/FIWARE/OCB/Imagenes/Insomnia/In-07.png)
+![](Imagenes/Insomnia/In-07.png)
 
 ## Datos geo-referenciados
 Las entidades pueden tener como atributo su ubicación (location) para resolver diferentes problemas.
