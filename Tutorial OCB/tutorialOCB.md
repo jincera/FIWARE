@@ -224,7 +224,7 @@ Y para borrar un atributo:
 {url}:1026/v2/entities/{id}/attrs/{value}
 Método: DELETE
 ```
-##OCB Query Language
+## OCB Query Language  
 También podemos hacer consultas con filtros para encontrar infromación más específica. 
 Para comenzar poblaremos la base de datos con una petición POST y los siguientes datos:
 El url que debemos utilizar es 
