@@ -89,305 +89,108 @@ Para poder correr Kurento nececitamos tener instalado en la computadora:
 	vagrant up
 	# 6. conectar a máquina virutal por medio de SSH
 	vagrant ssh
-	# 7. Levantar KMS
+	# 7. Configuración de JAVA_HOME
+	export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+	export PATH=$JAVA_HOME/bin:$PATH
+	# 8. Levantar KMS
 	sudo service kurento-media-server-6.0 start
 	# Debe de mostrarnos un mensaje: [OK]
-	# 8. Para poder verificar que esta corriendo el servidor
+	# 9. Para poder verificar que esta corriendo el servidor
 	ps -ef | grep kurento-media-server 
 	# Debe de haber aparecido kurento-media-server corriendo.
-	# 9. Para probar en que puerto está corriendo
+	# 10. Para probar en que puerto está corriendo
 	sudo netstat -putan | grep kurento
 	# Debe de ser el puerto 8888.
-	# 10. Para detener el KMS
+	# 11. Para detener el KMS
 	sudo service kurento-media-server-6.0 stop
 ```
-Los pasos anteriores debemos hacerlos para iniciar y detener nuestro servidor, para poder utilizar los siguientes tutoriales debemos hacer los pasos anteriores hasta el paso 7 para tener el KSM corriendo. 
+Los pasos anteriores debemos hacerlos para iniciar y detener nuestro servidor, para poder utilizar los siguientes tutoriales debemos hacer los pasos anteriores hasta el paso 8 para tener el KSM corriendo. 
  
- ## Hello World
+### Hello World
  Comenzaremos con un ejemplo sencillo. 
  Después de tener KMS corriendo.
  ```
- # Configuración de JAVA_HOME
-	export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-	export PATH=$JAVA_HOME/bin:$PATH
-	
+ 	# Desde la temrinal
+	# Descargar repositorio de Hello World
+	git clone https://github.com/Kurento/kurento-tutorial-java.git
+	# Cambiar de carpeta
+	cd kurento-tutorial-java/kurento-hello-world
+	git checkout 6.6.2
+	# Compilar el proyecto
+	# No olvides haber inciciado el servidor (KMS).
+	mvn compile exec:java
 ```
 
+Después de haber corrido los comandos anteriores y que en la terminal se pueda leer que la aplicación se ha iniciado (Started:...) ingresar a la página ` https://192.168.81.5:8443/` en chrome o en firefox. 
+Puede ser que tu navegador bloquee el acceso a este sitio web, permite que tenga acceso y tendras una pantalla como esta: 
 
+![](Imagenes/ku9.png)
 
+Hay que dar click en "Start" y con eso se iniciará la transmisión de video. 
+Del lado izquierdo de nuestra pantalla tenemos el video como se está tomando directamente de nuestra camara web. Del lado derecho tenemos el video como lo está recibiendo el cliente desde el KMS. 
+Para lograr esto simplemente se envía el video al KMS y éste lo envía de regreso al cliente sin modificaciones a través de un flujo de datos multimedia.
 
+![](Imagenes/ku10.png)
 
+La aplicación cuenta con tres partes. En primer lugar se encuentra el cliente de JavaScript, que es el que tenemos en nuestro navegador, este cliente se comunica con el servidor de aplicaciones de Java el cual se encarga de conectarse con KMS quien, después de procesar los datos, los regresa para hacerlos llegar al cliente. 
 
+Después de haber utilizado el primer ejemplo tenemos que detener el proceso, para esto: 
 
-
-
-
-
-
-
-
-
-Para los tutoriales necesitamos un montón de herramientas. Por eso es tan largo el proceso que se pone al final de este tutorial.  Algunas de las herramientas son:
-
-- Java, 
-- JavaScript, 
-- NodeJS, 
-- git, 
-- npm, 
-- bower, 
-- IDE de desarrollo, etc.  
-
-Entramos a la cuenta de lab.fiware.org, creamos una instancia a partir de una imagen y lo ejecutamos(`images/launch/...`)
-
-En este tutorial levantaremos una imagen en nuestro ambiente local.
-
-No está en github, así que haremos todo a mano.  
-
-```bash
-# Install Vagrant Ubuntu 14.04 LTS ----------------------------------------------------------------
-vagrant init ubuntu/trusty64
-
-#### -->  Hay que descomentar la línea 34 config.vm.network 
-
-# Habilitar config.vm.network para crear una red privada
-
-vagrant up
-
-vagrant ssh
-private_key:""
-password: vagrant
-
-pwd
-lsb_release -a  ; para ver la versión de ubuntu
-
-ip addr show  ; Me dio 192.168.85.149 en eth1
-
-# Install Kurento ---------------------------------------------------------------------------------
-
-echo "deb http://ubuntu.kurento.org trusty kms6" | sudo tee /etc/apt/sources.list.d/kurento.list
-wget -O - http://ubuntu.kurento.org/kurento.gpg.key | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install kurento-media-server-6.0
-
-# Running KMS
-sudo service kurento-media-server-6.0 start
+```
+# Desde la terminal de nuestra máquina virtual
+# Teclear ctrl z para detener el proceso
+sudo fuser -k 8443/tcp
+# Detener el servidor (KMS)
+# Regresar a la carpeta inicial
+cd ../..
 sudo service kurento-media-server-6.0 stop
-
-
-# Verified running server
-curl -i -N -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Host: 192.168.33.10:8888" -H "Origin: 127.0.0.1" http://192.168.33.10:8888/kurento
-
-
-# Verifica servicio
-ps -ef | grep kurento-media-server
-
-# Verifica puerto
-sudo netstat -putan | grep kurento
-
-# Ver Logs
-cd /var/log/kurento-media-server/
-
-
-# Install Kurento Client ---------------------------------------------------------------------------
-
-# Install Git ***************************************
-sudo apt-get update
-sudo apt-get install git
-
-# Install Maven *************************************
-sudo apt-cache search maven
-sudo apt-get install maven
-
-# Config JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
-export PATH=$JAVA_HOME/bin:$PATH
-
-sudo apt-get install openjdk-7-jdk openjdk-7-doc openjdk-7-jre-lib
-
-# Install node.js y Bower *********************************
-curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo apt-get install -y nodejs
-sudo npm install -g bower
-
-# ********************** Cliente [Java - Hello world] **********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/java/tutorial-helloworld.html
-git clone https://github.com/Kurento/kurento-tutorial-java.git
-
-# ************  También clonaremos los de java script y los de nodejs ****************
-git clone https://github.com/Kurento/kurento-tutorial-js.git
-git clone https://github.com/Kurento/kurento-tutorial-node.git
-
-cd kurento-tutorial-java/kurento-hello-world
-git checkout 6.6.0
-
-# Si estamos de manera local es el primero;  el de abajo si estamos de manera independiente
-# mvn simplifica el manejo de jars: Solo se declaran librerías y se descargan solo las que se necesitan y seguro son consistentes con las versiones
-
-
-#mvn compile exec:java  La IP es de donde se encuentra el KMS
-# En el ejemplo Hello world, solamente estamos haciendo un echo back en el pipeline
-
-mvn compile exec:java -Dkms.url=ws://192.168.81.5:8888/kurento
-
-# Se invoca esto desde un servidor en la computadora.  Mi direccion es 85.149
-https://192.168.81.5:8443/
-
-
-# Local
-https://127.0.0.1:8443/
-
-# ******************** Cliente [JavaScript - Hello world] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/js/tutorial-helloworld.html
-curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo apt-get install -y nodejs
-sudo npm install -g bower
-
-# Aquí necesitaremos un servidor 
-sudo npm install http-server -g
-
-git clone https://github.com/Kurento/kurento-tutorial-js.git
-cd kurento-tutorial-js/kurento-hello-world
-git checkout 6.6.0
-
-# Esto es para descargar todas las dependencias
-bower install
-
-# ... y ejecutamos el servidor. 
-http-server -p 8443 -S -C keys/server.crt -K keys/server.key
-
-https://192.168.33.10:8443
-# Lo que se ve aquí es la misma página pero los mensajes que se reciben en el log son distintos y no se ve en el servidor
-
-# El comando anterior, sí entra el cliente pero no hay retorno desde el servidor.
-# Por eso se propuso la siguiente instrucción, donde creamos web socket... desgraciadamente no sirve
-# En chrome hay una cruz a la derecha arriba, se le da clic permitiendo ejecución de secuencias no seguras y si funciona
-
-https://192.168.81.5:8443/index.html?ws_uri=ws://192.168.81.5:8888/kurento
-
-
-# Local
-https://127.0.0.1:8443/index.html?ws_uri=ws://192.168.81.5:8888/kurento
-
-# ******************** Cliente [Node.js - Hello world] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/node/tutorial-helloworld.html
-curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo apt-get install -y nodejs
-sudo npm install -g bower
-
-git clone https://github.com/Kurento/kurento-tutorial-node.git
-cd kurento-tutorial-node/kurento-hello-world
-git checkout 6.6.0
-npm install
-npm start
-
-https://192.168.81.5:8443/
-
-#  Aquí vamos a la versión magic mirror solo para que se agregue una figura:  detecta caras y mete un gorrito
-
-# ******************** Cliente [WebRTC one-to-one video call (java)] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials.html#webrtc-one-to-one-video-call
-git clone https://github.com/Kurento/kurento-tutorial-java.git
-cd kurento-tutorial-java/kurento-one2one-call
-git checkout 6.6.0
-#mvn compile exec:java
-mvn compile exec:java -Dkms.url=ws://192.168.81.5:8888/kurento
-
-https://192.168.81.5:8443/
-
-# ******************** Cliente [WebRTC one-to-one video call with recording and filtering] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/java/tutorial-one2one-adv.html
-
-# Este es interesante porque intercepta los flujos en los dos sentidos
-
-git clone https://github.com/Kurento/kurento-tutorial-java.git
-cd kurento-tutorial-java/kurento-one2one-call-advanced
-git checkout 6.6.0
-#mvn compile exec:java
-mvn compile exec:java -Dkms.url=ws://192.168.81.5:8888/kurento
-
-https://192.168.81.5:8443/
-
-
-# ******************** Cliente [Java - WebRTC magic mirror] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/java/tutorial-magicmirror.html
-git clone https://github.com/Kurento/kurento-tutorial-java.git
-cd kurento-tutorial-java/kurento-magic-mirror
-git checkout 6.6.0
-#mvn compile exec:java
-mvn compile exec:java -Dkms.url=ws://192.168.81.5:8888/kurento
-
-https://192.168.81.5:8443/
-
-# ******************** Cliente [Java - Metadata] ********************
-# http://doc-kurento.readthedocs.io/en/stable/tutorials/java/tutorial-metadata.html
-git clone https://github.com/Kurento/kurento-tutorial-java.git
-cd kurento-tutorial-java/kurento-metadata-example
-git checkout 6.6.0
-#mvn compile exec:java
-mvn compile exec:java -Dkms.url=ws://192.168.81.5:8888/kurento
-
-# *******************************************************************************
-
-# Install STUN Server -------------
-# https://code.google.com/archive/p/coturn/
-
-sudo iptables -A INPUT -p udp --dport 8433 -j ACCEPT
-sudo iptables -A INPUT -p udp --dport 8433 -j ACCEPT
-sudo iptables -A OUTPUT -p udp --dport 8433 -j ACCEPT
-sudo iptables -A OUTPUT -p udp --dport 8433 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 8433  -j ACCEPT
-
-# Creacion de Red Virtual en Windows
-netsh wlan set hostednetwork mode=allow ssid="kurento_ssid" key="12345678"
-netsh wlan start hostednetwork
-
-https://192.168.81.5:8443/index.html?ws_uri=wss://192.168.81.5:8888/kurento
-https://192.168.81.5:8443/index.html?ws_uri=ws://192.168.81.5:8888/kurento
-
---------------------------------------------------------------------
-
-# http://www.kurento.org/
-
-# Instalacion de Docker
-sudo apt-get update
-
-sudo apt-get install -y --no-install-recommends \
-    linux-image-extra-$(uname -r) \
-    linux-image-extra-virtual
-    
-sudo apt-get install -y --no-install-recommends \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
-    
-curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
-
-sudo add-apt-repository \
-       "deb https://apt.dockerproject.org/repo/ \
-       ubuntu-$(lsb_release -cs) \
-       main"
-
-# Install Docker
-
-sudo apt-get update
-
-sudo apt-get -y install docker-engine
-
-sudo docker run hello-world
-
-# Install Docker Kurento
-sudo docker run --name kms -p 8888:8888 -d kurento/kurento-media-server
-
-curl -i -N -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Host: 127.0.0.1:8888" -H "Origin: 127.0.0.1" http://127.0.0.1:8888/kurento
-
-sudo docker logs kms
-
-
-
-iptables -A INPUT -p udp -m udp --dport 8888 -j ACCEPT
-iptables -A OUT -p udp -m udp --dport 8888 -j ACCEPT
 ```
+
+### WebRTC magic mirror
+Haremos ahora un segundo ejemplo que contiene más funcionalidades de Kurento. 
+
+```
+# Desde la terminal 
+# Cambiar de carpeta
+cd kurento-tutorial-java/kurento-magic-mirror
+git checkout 6.6.2
+# Compilar el proyecto
+# No olvides haber inciciado el servidor (KMS).
+mvn compile exec:java
+```
+
+Después de haber corrido los comandos anteriores y que en la terminal se pueda leer que la aplicación se ha iniciado (Started:...) ingresar a la página ` https://192.168.81.5:8443/` en chrome o en firefox. 
+Puede ser que tu navegador bloquee el acceso a este sitio web, permite que tenga acceso y tendras una pantalla como la anterior. 
+
+Una vez más, hay que dar click en "Start" y con eso se iniciará la transmisión de video. 
+Del lado izquierdo de nuestra pantalla tenemos el video como se está tomando directamente de nuestra camara web. Del lado derecho tenemos el video como lo está recibiendo el cliente desde el KMS. 
+Para lograr esto Kurento está utilizando realidad aumentada y visión por computadora para poder poner el sombrero sobre tu cabeza.
+Utiliza un "Media Element" del tipo "Filter" para hacer el cambio en los datos multimedia y enviarlos al cliente.  
+
+![](Imagenes/ku11.png)
+
+Despuñes de haber utilizado el primer ejemplo tenemos que detener el proceso, para esto: 
+
+```
+# Desde la terminal de nuestra máquina virtual
+# Teclear ctrl z para detener el proceso
+sudo fuser -k 8443/tcp
+# Detener el servidor (KMS)
+# Regresar a la carpeta inicial
+cd ../..
+sudo service kurento-media-server-6.0 stop
+```
+
+Después de haber terminado los ejemplos anteriores debemos apagar la máquina virtual. 
+
+```
+# Desde la terminal
+# Salir de la mv.
+exit
+# Para apagar la mv.
+vagrant halt
+```
+
 
 
 
