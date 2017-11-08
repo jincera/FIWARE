@@ -153,7 +153,7 @@ Haremos ahora un segundo ejemplo que contiene más funcionalidades de Kurento.
 # Desde la terminal 
 # Cambiar de carpeta
 cd kurento-tutorial-java/kurento-magic-mirror
-git checkout 6.6.2
+git checkout 6.6.0
 # Compilar el proyecto
 # No olvides haber inciciado el servidor (KMS).
 mvn compile exec:java
