@@ -66,6 +66,7 @@ Para poder instalar la máquina virtual en nuestra computadora haremos los sigui
 	git clone https://github.com/capcaz99/FIWARE.git
 	# Cambiar a directorio Fiware
 	cd FIWARE
+	cd tutorialOCB
 	cd vm-fiware-orion
 	# iniciar máquina virtual de Orion, este proceso puede tardar
 	vagrant up

@@ -65,7 +65,54 @@ Para información específica sobre diferentes "Media Elements" se puede visitar
 
 
 ## Usando Kurento 
-Ahora haremos un 
+Para poder correr Kurento nececitamos tener instalado en la computadora:
+	
+* VirtualBox
+* SSH
+* Vagrant 
+* Git
+
+```
+# Utilizando la terminal. 
+	#### Set up
+	# 1. crear carpeta
+	mkdir cursoFiware
+	# 2. cambiar de directorio
+	cd cursoFiware
+	# 3. bajar estructura de las máquinas virtuales
+	git clone https://github.com/capcaz99/FIWARE.git
+	# 4. Cambiar a directorio Fiware
+	cd FIWARE
+	cd tutorialKurento
+	cd vm-kurento
+	# 5. iniciar máquina virtual de Kurento, este proceso puede tardar
+	vagrant up
+	# 6. conectar a máquina virutal por medio de SSH
+	vagrant ssh
+	# 7. Levantar KMS
+	sudo service kurento-media-server-6.0 start
+	# Debe de mostrarnos un mensaje: [OK]
+	# 8. Para poder verificar que esta corriendo el servidor
+	ps -ef | grep kurento-media-server 
+	# Debe de haber aparecido kurento-media-server corriendo.
+	# 9. Para probar en que puerto está corriendo
+	sudo netstat -putan | grep kurento
+	# Debe de ser el puerto 8888.
+	# 10. Para detener el KMS
+	sudo service kurento-media-server-6.0 stop
+```
+Los pasos anteriores debemos hacerlos para iniciar y detener nuestro servidor, para poder utilizar los siguientes tutoriales debemos hacer los pasos anteriores hasta el paso 7 para tener el KSM corriendo. 
+ 
+ ## Hello World
+ Comenzaremos con un ejemplo sencillo. 
+ Después de tener KMS corriendo.
+ ```
+ # Configuración de JAVA_HOME
+	export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+	export PATH=$JAVA_HOME/bin:$PATH
+	
+```
+
 
 
 
