@@ -67,7 +67,7 @@ sudo tar xzf jdk-8u151-linux-x64.tar.gz
 
 
 ## Ejecutar al ingresar a la maquina virtual
-# export JAVA_HOME=/opt/jdk1.8.0_151
+ export JAVA_HOME=/opt/jdk1.8.0_151
 # mvn -f fiware-orion-subscriber/pom.xml spring-boot:run
 
  
