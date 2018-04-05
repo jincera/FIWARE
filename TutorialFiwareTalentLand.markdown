@@ -42,7 +42,7 @@ La especificación completa de NGSIv2 se encuentra aquí: [http://fiware.github.
 
 La interacción típica en la plataforma Fiware (como en la mayoría de las plataformas para Internet de las Cosas) consta de tres elementos: el productor de información de contexto (por ejemplo, un sensor), un intermediario, que en nuestro caso es el OCB, y el consumidor de esa información.
 
-![](https://i.imgur.com/eSiUa)
+![](imagenes/intro2.png)
 
 El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes. Típicamente accede al OCB a través del **puerto 1026**.
 
@@ -62,7 +62,7 @@ Todos los datos estarán representados con el formato JSON (también podrían re
 
 Un Objeto JSON tienen las siguiente forma:
 
-!["Imagen tomada de JSON.org"](../imagenes/02-JSONObject.gif)
+!["Imagen tomada de JSON.org"](imagenes/02-JSONObject.gif)
 
 Es decir, se encuentran definidos entre llaves. *String* será definido como las propiedades entidades. Los *value* son los atributos.
 
@@ -134,13 +134,13 @@ Para poder interactuar con el OCB utilizaremos la herramienta [Insomnia](https:/
 
 Crearemos en insomnia una carpeta llamada **Operaciones-Comunes**. En esta carpeta se guardarán todas las consultas que hagamos.
 
-!["Nueva carpeta insomnia"](../imagenes/Insomnia/In-01.png)
+!["Nueva carpeta insomnia"](imagenes/In-01.png)
 
 #### POST
 En primer lugar debemos enviar la representación de una entidad con el método **POST**:
 Comenzaremos por crear una nueva petición (New Request) en Insomnia:
 
-![](../imagenes/Insomnia/In-02.png)
+![](imagenes/In-02.png)
 
 El nombre sugerido para esta petición es **inserta-entidad**, el método que utilizaremos será **POST** y el cuerpo (body) será de tipo JSON.
 
@@ -162,7 +162,7 @@ El URL que utilizaremos será **http://XX.XX.XX.XX:1026/v2/entities** y el tipo 
 
 En el cuerpo de la consulta, en la parte media de Insomnia, colocaremos la descripción de la entidad 
 
-![](../imagenes/Insomnia/In-03.png)  
+![](imagenes/In-03.png)  
 
 Si todo está correcto, al dar `Send` en el extremo derecho de Insomnia se debe observar el mensaje `201 CREATED` y el cuerpo de la respuesta debe estar vacío.
 
@@ -180,7 +180,7 @@ En Insomnia, es posible duplicar la consulta anterior y renombrarla. Hágalo as�
 
 Para el método GET,  sólo se especifica el URL, sin Body ni Content-type. En nuestra primer consulta pediremos todas las entidades almacenadas en el OCB hasta ahora.  Para ello, el URL que se utiliza es: `http://XX.XX.XX.XX:1026/v2/entities`: 
 
-!["Insomnia obtén todas"](../imagenes/Insomnia/In-GetAll.PNG)
+!["Insomnia obtén todas"](imagenes/In-GetAll.PNG)
 
 
 ##### Consulta acotada.
@@ -191,7 +191,7 @@ ___
 **EJERCICIO**.  Agregue una nueva consulta a Insomnia. Nómbrela obten-una-entidad y modifíquela para obtener únicamente una de las entidades que usted creó. 
 ___
 
-![Insomnia obten-una-entidad](../imagenes/Insomnia/In-ObtenUna.PNG)
+![Insomnia obten-una-entidad](imagenes/In-ObtenUna.PNG)
 
 De forma similar, a partir de la versión 2 de NGSI es posible realizar consultas (u otros métodos como PUT y DELETE) a atributos de las entidades ampliando el URL:
 
@@ -446,7 +446,7 @@ GET http://XX.XX.XX.XX:1026/v2/entities?limit=3&offset=5&type=LineMeter&options=
 En el lienzo central, Insomnia tiene una pestaña de `query`.  Podemos ver en ella cómo se va formando la consulta con los parámetros agregados al URL.  Para la consulta anterior, el resultado y los campos de `query` se muestran en la siguiente figura:
 
  
-![](../imagenes/Insomnia/In-04.png)
+![](imagenes/In-04.png)
 
 Se pueden filtrar las consultas a partir del valor de algún atributo con la opción `q` (o el valor de un metadato con la opción `mq`). Por ejemplo, la siguiente consulta muestra todas las entidades en las que el atributo `temperature` es mayor a 32.5 grados.
 
@@ -758,7 +758,7 @@ Con el método `POST` y la operación `update`, cargue las siguientes entidades 
 ```
 En la siguiente figura se muestran los puntos simulados en azúu, junto con algunos puntos de interés en naranja.
 
-![](../imagenes/GeoRef/mapa1.png)
+![](imagenes/mapa1.png)
 
 Ahora buscaremos lugares de interés con relación a un objeto geográfico.
 
@@ -772,7 +772,7 @@ Body: Vacío
 ```
 Se están buscando las entidades tipo "microGenerator" que estén como máximo 800 metros del punto especificado. El resultado son los siguientes seis puntos:
 
-![](../imagenes/GeoRef/PtosInCircle.png)
+![](imagenes/PtosInCircle.png)
 
 ```bash
 [
@@ -920,7 +920,7 @@ El resultado es el siguiente:
 	}
 ]
 ```
-![](../imagenes/GeoRef/PtosInPolygon.png)
+![](imagenes/PtosInPolygon.png)
 
 
 ##2.- Lector de temperatura y humedad con Arduino
