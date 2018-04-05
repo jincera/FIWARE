@@ -42,7 +42,7 @@ La especificación completa de NGSIv2 se encuentra aquí: [http://fiware.github.
 
 La interacción típica en la plataforma Fiware (como en la mayoría de las plataformas para Internet de las Cosas) consta de tres elementos: el productor de información de contexto (por ejemplo, un sensor), un intermediario, que en nuestro caso es el OCB, y el consumidor de esa información.
 
-![](https://i.imgur.com/eSiUa)
+![](https://i.imgur.com/rci7Co3.png)
 
 El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes. Típicamente accede al OCB a través del **puerto 1026**.
 
@@ -1225,7 +1225,7 @@ Para poder desplegar una instancia en Fiware Lab se deben de seguir estos pasos:
 
 **Ir a Acceso y Seguridad -> IPs flotantes -> Asignar IP al proyecto.** 
 
-![](https://i.imgur.com/0J4QfLa.png )
+![]()https://i.imgur.com/0J4QfLa.PNG
  
 **De la IP asignada, clic en asociar**
 
