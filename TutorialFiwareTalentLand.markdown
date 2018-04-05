@@ -62,7 +62,7 @@ Todos los datos estarán representados con el formato JSON (también podrían re
 
 Un Objeto JSON tienen las siguiente forma:
 
-!["Imagen tomada de JSON.org"](../imagenes/02-JSONObject.gif)
+!["Imagen tomada de JSON.org"](https://i.imgur.com/85GbVzq.gif)
 
 Es decir, se encuentran definidos entre llaves. *String* será definido como las propiedades entidades. Los *value* son los atributos.
 
@@ -134,13 +134,13 @@ Para poder interactuar con el OCB utilizaremos la herramienta [Insomnia](https:/
 
 Crearemos en insomnia una carpeta llamada **Operaciones-Comunes**. En esta carpeta se guardarán todas las consultas que hagamos.
 
-!["Nueva carpeta insomnia"](../imagenes/Insomnia/In-01.png)
+!["Nueva carpeta insomnia"](https://i.imgur.com/xPddIY3.png)
 
 #### POST
 En primer lugar debemos enviar la representación de una entidad con el método **POST**:
 Comenzaremos por crear una nueva petición (New Request) en Insomnia:
 
-![](../imagenes/Insomnia/In-02.png)
+![](https://i.imgur.com/feKIvNj.png)
 
 El nombre sugerido para esta petición es **inserta-entidad**, el método que utilizaremos será **POST** y el cuerpo (body) será de tipo JSON.
 
@@ -162,7 +162,7 @@ El URL que utilizaremos será **http://XX.XX.XX.XX:1026/v2/entities** y el tipo 
 
 En el cuerpo de la consulta, en la parte media de Insomnia, colocaremos la descripción de la entidad 
 
-![](../imagenes/Insomnia/In-03.png)  
+![](blob:https://imgur.com/de2d8d79-c4d6-434e-a66b-43f38d836517)  
 
 Si todo está correcto, al dar `Send` en el extremo derecho de Insomnia se debe observar el mensaje `201 CREATED` y el cuerpo de la respuesta debe estar vacío.
 
@@ -180,7 +180,7 @@ En Insomnia, es posible duplicar la consulta anterior y renombrarla. Hágalo as�
 
 Para el método GET,  sólo se especifica el URL, sin Body ni Content-type. En nuestra primer consulta pediremos todas las entidades almacenadas en el OCB hasta ahora.  Para ello, el URL que se utiliza es: `http://XX.XX.XX.XX:1026/v2/entities`: 
 
-!["Insomnia obtén todas"](../imagenes/Insomnia/In-GetAll.PNG)
+!["Insomnia obtén todas"](https://i.imgur.com/9po7gwI.png)
 
 
 ##### Consulta acotada.
@@ -191,7 +191,7 @@ ___
 **EJERCICIO**.  Agregue una nueva consulta a Insomnia. Nómbrela obten-una-entidad y modifíquela para obtener únicamente una de las entidades que usted creó. 
 ___
 
-![Insomnia obten-una-entidad](../imagenes/Insomnia/In-ObtenUna.PNG)
+![Insomnia obten-una-entidad](https://i.imgur.com/PaFOMbA.png)
 
 De forma similar, a partir de la versión 2 de NGSI es posible realizar consultas (u otros métodos como PUT y DELETE) a atributos de las entidades ampliando el URL:
 
