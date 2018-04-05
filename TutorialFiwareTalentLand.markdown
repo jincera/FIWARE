@@ -1098,6 +1098,25 @@ void loop() {
 }
 
 ```
+
+## 3.- Visualizar los datos capturados en un tablero de control.
+
+Para poder visualizar los datos capturados con la ayuda del Arduino vamos a utilizar una herramienta llamada **freeboard**. 
+Para hacerlo seguiremos los siguientes pasos: 
+
+* Ir a la página www.freeboard.io, dar click en start now y registrarte. 
+* Una vez registrado dar click en el boton create new.
+* En la forma se tiene que elegir Type -> JSON, elegir un nombre, en la url poner la dirección a la cual sabemos que el OCB va a responder con el valor del atributo deseado, dar como tiempo para refrescar que sea cada 5 segundos y guardar. 
+
+![](https://i.imgur.com/2X1IW7a.png)
+
+* Posteriormente dar click en add pane y en el simbolo de mas que aparece abajo. 
+
+![](https://i.imgur.com/bxnXF0c.png)
+
+* En la forma que aparece selecionar el tipo de tablero deseado, darle un titulo, en el valor poner "datasource[nombredeDataSource]["value"] y en las unidades poner ºC y guardar. 
+
+![](https://i.imgur.com/qL7e5wU.png)
 **¡Ahora es tu turno!**  
 Tu siguiente tarea es integrar ambas funcionalidades para lograr que el Arduino mande los datos que está leyendo de humedad y temperatura al OCB.  
 Para esto tendrás que:
