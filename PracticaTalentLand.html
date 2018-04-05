@@ -1,1248 +1,0 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-   <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-   <style type="text/css">
-   /*CSS stylesheet is based on killwing's flavored markdown style:https://gist.github.com/2937864*/body{    margin: 0 auto;    font: 13px/1.231 Helvetica, Arial, sans-serif;    color: #444444;    line-height: 1;    max-width: 960px;    padding: 5px;}h1, h2, h3, h4 {    color: #111111;    font-weight: 400;}h1, h2, h3, h4, h5, p {    margin-bottom: 16px;    padding: 0;}h1 {    font-size: 28px;}h2 {    font-size: 22px;    margin: 20px 0 6px;}h3 {    font-size: 21px;}h4 {    font-size: 18px;}h5 {    font-size: 16px;}a {    color: #0099ff;    margin: 0;    padding: 0;    vertical-align: baseline;}a:link,a:visited{ text-decoration:none;}a:hover{ text-decoration:underline;}ul, ol {    padding: 0;    margin: 0;}li {    line-height: 24px;    margin-left: 44px;}li ul, li ul {    margin-left: 24px;}ul, ol {    font-size: 14px;    line-height: 20px;    max-width: 540px;}p {    font-size: 14px;    line-height: 20px;    max-width: 540px;    margin-top: 3px;}pre {    padding: 0px 4px;    max-width: 800px;    white-space: pre-wrap;    font-family: Consolas, Monaco, Andale Mono, monospace;    line-height: 1.5;    font-size: 13px;    border: 1px solid #ddd;    background-color: #f7f7f7;    border-radius: 3px;}code {    font-family: Consolas, Monaco, Andale Mono, monospace;    line-height: 1.5;    font-size: 13px;    border: 1px solid #ddd;    background-color: #f7f7f7;    border-radius: 3px;}pre code {    border: 0px;}aside {    display: block;    float: right;    width: 390px;}blockquote {    border-left:.5em solid #40AA53;    padding: 0 2em;    margin-left:0;    max-width: 476px;}blockquote  cite {    font-size:14px;    line-height:20px;    color:#bfbfbf;}blockquote cite:before {    content: '\2014 \00A0';}blockquote p {      color: #666;    max-width: 460px;}hr {    height: 1px;    border: none;    border-top: 1px dashed #0066CC}button,input,select,textarea {  font-size: 100%;  margin: 0;  vertical-align: baseline;  *vertical-align: middle;}button, input {  line-height: normal;  *overflow: visible;}button::-moz-focus-inner, input::-moz-focus-inner {  border: 0;  padding: 0;}button,input[type="button"],input[type="reset"],input[type="submit"] {  cursor: pointer;  -webkit-appearance: button;}input[type=checkbox], input[type=radio] {  cursor: pointer;}/* override default chrome & firefox settings */input:not([type="image"]), textarea {  -webkit-box-sizing: content-box;  -moz-box-sizing: content-box;  box-sizing: content-box;}input[type="search"] {  -webkit-appearance: textfield;  -webkit-box-sizing: content-box;  -moz-box-sizing: content-box;  box-sizing: content-box;}input[type="search"]::-webkit-search-decoration {  -webkit-appearance: none;}label,input,select,textarea {  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  font-size: 13px;  font-weight: normal;  line-height: normal;  margin-bottom: 18px;}input[type=checkbox], input[type=radio] {  cursor: pointer;  margin-bottom: 0;}input[type=text],input[type=password],textarea,select {  display: inline-block;  width: 210px;  padding: 4px;  font-size: 13px;  font-weight: normal;  line-height: 18px;  height: 18px;  color: #808080;  border: 1px solid #ccc;  -webkit-border-radius: 3px;  -moz-border-radius: 3px;  border-radius: 3px;}select, input[type=file] {  height: 27px;  line-height: 27px;}textarea {  height: auto;}/* grey out placeholders */:-moz-placeholder {  color: #bfbfbf;}::-webkit-input-placeholder {  color: #bfbfbf;}input[type=text],input[type=password],select,textarea {  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;  transition: border linear 0.2s, box-shadow linear 0.2s;  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);}input[type=text]:focus, input[type=password]:focus, textarea:focus {  outline: none;  border-color: rgba(82, 168, 236, 0.8);  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);}/* buttons */button {  display: inline-block;  padding: 4px 14px;  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  font-size: 13px;  line-height: 18px;  -webkit-border-radius: 4px;  -moz-border-radius: 4px;  border-radius: 4px;  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);  background-color: #0064cd;  background-repeat: repeat-x;  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);  background-image: -o-linear-gradient(top, #049cdb, #0064cd);  background-image: linear-gradient(top, #049cdb, #0064cd);  color: #fff;  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);  border: 1px solid #004b9a;  border-bottom-color: #003f81;  -webkit-transition: 0.1s linear all;  -moz-transition: 0.1s linear all;  transition: 0.1s linear all;  border-color: #0064cd #0064cd #003f81;  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);}button:hover {  color: #fff;  background-position: 0 -15px;  text-decoration: none;}button:active {  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);}button::-moz-focus-inner {  padding: 0;  border: 0;}/* table  */table {    border-spacing: 0;    border: 1px solid #ccc;}td, th{    border: 1px solid #ccc;    padding: 5px;}/* code syntax highlight.Documentation: http://www.mdcharm.com/documentation/code_syntax_highlighting.html#custom_your_own */pre .literal,pre .comment,pre .template_comment,pre .diff .header,pre .javadoc {    color: #008000;}pre .keyword,pre .css .rule .keyword,pre .winutils,pre .javascript .title,pre .nginx .title,pre .subst,pre .request,pre .status {    color: #0000FF;    font-weight: bold}pre .number,pre .hexcolor,pre .python .decorator,pre .ruby .constant {    color: #0000FF;}pre .string,pre .tag .value,pre .phpdoc,pre .tex .formula {    color: #D14}pre .title,pre .id {    color: #900;    font-weight: bold}pre .javascript .title,pre .lisp .title,pre .clojure .title,pre .subst {    font-weight: normal}pre .class .title,pre .haskell .type,pre .vhdl .literal,pre .tex .command {    color: #458;    font-weight: bold}pre .tag,pre .tag .title,pre .rules .property,pre .django .tag .keyword {    color: #000080;    font-weight: normal}pre .attribute,pre .variable,pre .lisp .body {    color: #008080}pre .regexp {    color: #009926}pre .class {    color: #458;    font-weight: bold}pre .symbol,pre .ruby .symbol .string,pre .lisp .keyword,pre .tex .special,pre .prompt {    color: #990073}pre .built_in,pre .lisp .title,pre .clojure .built_in {    color: #0086b3}pre .preprocessor,pre .pi,pre .doctype,pre .shebang,pre .cdata {    color: #999;    font-weight: bold}pre .deletion {    background: #fdd}pre .addition {    background: #dfd}pre .diff .change {    background: #0086b3}pre .chunk {    color: #aaa}pre .markdown .header {    color: #800;    font-weight: bold;}pre .markdown .blockquote {    color: #888;}pre .markdown .link_label {    color: #88F;}pre .markdown .strong {    font-weight: bold;}pre .markdown .emphasis {    font-style: italic;}
-   </style>
-   
-   
-</head>
-<body>
-    <h1>Tutorial Fiware - Orion Context Broker</h1>
-
-<h2>Internet de lsa cosas en la salud</h2>
-
-<h2>Taller Talent Land, Abr 2018</h2>
-
-<h2>Introducción</h2>
-
-<p>En la presentación que se ha hecho como introducción al taller, hemos conversado sobre el impacto profundo que la Internet de las Cosas (IoT, <em>Internet of Things</em>) tendrá en prácticamente todas las actividades de nuestra vida.  </p>
-
-<p>Hemos puesto la atención en las muchas aplicaciones que se han desplegado en el sector salud, desde las pulseras y bandas para medir signos vitales, hasta monitores de partículas peligrosas en zonas hospitalarias.</p>
-
-<p>También hemos mencionado que, para sacar provecho de lo que los objetos <em>inteligentes</em> perciben, es necesario contar con una plataforma que permita capturar, procesar, mostrar y almacenar los datos capturados por esos objetos.</p>
-
-<p>En este taller tendremos una primera exposición a <strong>Fiware</strong>, una plataforma abierta que permite desplegar aplicaciones <em>inteligentes</em> muy rápidamente.  Específicamente, estaremos interactuando con su componente central, el <strong>Orion Context Broker</strong> (OCB), que es el encargado de recibir los datos enviados por los objetos de interés.</p>
-
-<h2>Objetivo</h2>
-
-<p>El objetivo central de este tutorial es dar una idea básica del flujo de datos típico al implementar aplicaciones inteligentes que utilicen información obtenida de diferentes medios como sensores, usuarios de dispositivos móviles, etcétera. </p>
-
-<p>Los objetivos particulares son:</p>
-
-<ul>
-<li>Familiarizarse con los conceptos del Orion Context Broker en un entorno IoT.<br></li>
-<li>Implementar un prototipo de sensor ambiental con una tarjeta Arduino</li>
-<li>Capturar y desplegar en un tablero de mando las lecturas de un sensor de temperatura y humedad</li>
-</ul>
-
-<p>Este taller es muy ambicioso e incluye algunos conceptos no triviales; siéntase en libertad de darle un primer recorrido rápido, enfocarse en los temas que le sean de mayor interés en una primera fase, y volver a él con más calma al terminar el taller.  </p>
-
-<p>El taller está compuesto de cuatro bloques:</p>
-
-<ol>
-<li>Familiarizarse con el estándar de representación de datos NGSI y con los principales comandos que maneja el Orion Context Broker.
-
-<ul>
-<li>Interactuar con el OCB con mensajes REST en formato JSON</li>
-</ul></li>
-<li>Implementar el prototipo de una estación de monitoreo (temperatura y humedad) con una tarjeta Arduino 
-
-<ul>
-<li>Enviar los datos capturados por la tarjeta al OCB a través de Internet.</li>
-</ul></li>
-<li>Visualizar los datos capturados en un tablero de control.</li>
-<li>Conocer el ambiente de trabajo de Fiware Lab Cloud  y desplegar una instancia de evaluación en ese ambiente</li>
-</ol>
-
-<h2>1.- Orion Context Broker</h2>
-
-<p>En Fiware, para que las aplicaciones puedan obtener información de los sensores y objetos inteligentes, un componente esencial es el Orion Context Broker (OCB). Orion Context Broker es una implementación de la API NGSI (<em>Next Generation Service Interface</em>) que permite manejar y asegurar la disponibilidad de la información obtenida del contexto donde se encuentra el objeto (el sensor). La versión que se utiliza actualmente es <strong>NGSIv2</strong>.</p>
-
-<p>La especificación completa de NGSIv2 se encuentra aquí: <a href="http://fiware.github.io/context.Orion/api/v2/stable/">http://fiware.github.io/context.Orion/api/v2/stable/</a>.</p>
-
-<p>La interacción típica en la plataforma Fiware (como en la mayoría de las plataformas para Internet de las Cosas) consta de tres elementos: el productor de información de contexto (por ejemplo, un sensor), un intermediario, que en nuestro caso es el OCB, y el consumidor de esa información.</p>
-
-<p><img src="https://i.imgur.com/eSiUa" alt=""></p>
-
-<p>El productor de información de contexto se encargará de crear nuevas entidades o de actualizar las entidades ya existentes. Típicamente accede al OCB a través del <strong>puerto 1026</strong>.</p>
-
-<p>Los últimos datos se mantienen persistentes en el OCB con ayuda de una base de datos; en nuestro caso, se utiliza MongoDB.</p>
-
-<p>El OCB funciona como intermediario entre los productores de información y otros componentes (los consumidores de información) como pueden ser un tablero de mando para representar gráficamente la información, un conector hacia bases de datos o repositorios de big data, un procesador en tiempo real, etcétera.</p>
-
-<p>En este tutorial vamos a interactuar con el OCB enviando y consultando representaciones de objetos a través de una API REST.</p>
-
-<h3>Representación de datos de contexto</h3>
-
-<p>Para representar objetos de la vida real se utiliza el modelo de entidades de la API NGSI. En éste se define un <strong>modelo de datos</strong> de información de contexto basado en <em>entidades</em> y en <em>atributos</em>. Cada entidad representa un objeto de la vida real y puede tener atributos y metadatos.</p>
-
-<p>Las entidades cuentan con un identificador (ID) y un tipo. <strong>Esta pareja ID/tipo debe ser única en el OCB</strong>.  Los atributos y metadatos se representan por una tupla <strong>[nombre, tipo, valor]</strong>. </p>
-
-<p>Todos los datos estarán representados con el formato JSON (también podrían representarse en otro formato, por ejemplo, key/value). El formato de datos <strong>JSON (Java Script Object Notation)</strong> es ligero para el intercambio de información, además de ser fácil de leer, así como de procesar.</p>
-
-<p>Un Objeto JSON tienen las siguiente forma:</p>
-
-<p><img src="../imagenes/02-JSONObject.gif" alt="&quot;Imagen tomada de JSON.org&quot;"></p>
-
-<p>Es decir, se encuentran definidos entre llaves. <em>String</em> será definido como las propiedades entidades. Los <em>value</em> son los atributos.</p>
-
-<p>Por ejemplo, modelaremos la temperatura y la presión de un cuarto con la siguiente entidad:</p>
-
-<pre><code>{
-    &quot;id&quot;: &quot;Cuarto1&quot;
-    &quot;type&quot;: &quot;Cuarto&quot;
-    &quot;temperature&quot;: {
-        &quot;type&quot;: &quot;Float&quot;,
-        &quot;value&quot;: 23,
-        &quot;metadata&quot;:{
-            “precision”: {
-                “type”:xxx,
-                “value”: xxx
-            }
-        }
-    },
-    &quot;pressure&quot;:{
-        &quot;value&quot;: 720
-    }
-}
-</code></pre>
-
-<p>Como se observa en el ejemplo anterior, en los atributos se puede especificar o no el tipo de dato. Se recomienda especificarlo siempre; si se omite, el OCB tratará de inferirlo.  </p>
-
-<p>También se observa que la metadata es opcional y en caso de exisitir, su formato será también una tupla [nombre, tipo, valor].</p>
-
-<p><em>Nota:</em> Fiware ya tiene un conjunto de modelos estandarizados. Pueden consultarse en la página <a href="https://www.fiware.org/data-models/">https://www.fiware.org/data-models/</a>. Otra página de interés es <a href="http://schema.org/">http://schema.org/</a>. Si se encuentra un modelo del objeto que deseamos representar, conviene utilizar esos esquemas para que nuestro producto sea interoperable.</p>
-
-<h3>Interactuando con el OCB</h3>
-
-<p>El OCB contiene una interfaz tipo Web para realizar las consultas a la base de datos MongoDB. Se trata de un servicio web de tipo REST (Representational state transfer). </p>
-
-<p>En este tutorial, la interacción con el OCB se hará a través de solicitudes HTTP con un cliente REST. Para ello, se debe especificar el URL al cual estaremos haciendo la solicitud, el método REST de la solicutud, el encabezado y el cuerpo de la solicitud.</p>
-
-<p>Este tipo de servicios permiten obtener información de forma arborecente. Es decir, es posible obtener | actualizar | borrar información de una entidad completa o sólo valores de una entidad en específico.</p>
-
-<p>El URL al que haremos la solicitud sera: <strong><a href="http://XX.XX.XX.XX:1026/v2/">http://XX.XX.XX.XX:1026/v2/</a>...</strong>, es decir, la comunicación se hace a través del puerto 1026 y utilizando la versión 2 de la NGSI.</p>
-
-<p><strong>(<em>Sustituya las XX.XX.XX.XX por la dirección IP de su instancia si la instaló como se indica en la cuarta parte de este tutorial, o la dirección IP del servidor que se le indique en la sala</em>.)</strong> </p>
-
-<p>Los métodos REST que utilizaremos son <strong>GET, POST, PUT, DELETE, OPTIONS, HEAD, TRACE, CONNECT.</strong>  </p>
-
-<p>El encabezado de la consulta indica en qué formato se estará recibiendo y enviando la información: </p>
-
-<ul>
-<li>Si la información es de tipo JSON se debe poner <strong>application/json</strong> </li>
-<li>Si es de tipo texto se debe de poner <strong>text/plain</strong>.</li>
-</ul>
-
-<p>Para indicar que se está enviando información se debe de poner <strong>Content-Type</strong> y para indicar que se desea recibir se debe de poner <strong>Accept</strong>.  </p>
-
-<p>Así, una solicitud quedaría de la siguiente manera: </p>
-
-<pre><code>xx.xx.xx:pto/v2/entities
-Método: POST
-Headers: Content-Type:application/json
-Body:
-{  “id”: xx
-   “type”: xx
-   “atributo”:{
-        &quot;value&quot;:xx
-   }
-   ...
-}
-</code></pre>
-
-<p>Para poder interactuar con el OCB utilizaremos la herramienta <a href="https://insomnia.rest/">Insomnia</a>. Si lo desea, puede utilizar cualquier otro cliente REST.  De hecho, se puede hacer desde la terminal de git con el comando <em>curl</em>, pero ello es mucho más propenso a errores.</p>
-
-<p>Crearemos en insomnia una carpeta llamada <strong>Operaciones-Comunes</strong>. En esta carpeta se guardarán todas las consultas que hagamos.</p>
-
-<p><img src="../imagenes/Insomnia/In-01.png" alt="&quot;Nueva carpeta insomnia&quot;"></p>
-
-<h4>POST</h4>
-
-<p>En primer lugar debemos enviar la representación de una entidad con el método <strong>POST</strong>:
-Comenzaremos por crear una nueva petición (New Request) en Insomnia:</p>
-
-<p><img src="../imagenes/Insomnia/In-02.png" alt=""></p>
-
-<p>El nombre sugerido para esta petición es <strong>inserta-entidad</strong>, el método que utilizaremos será <strong>POST</strong> y el cuerpo (body) será de tipo JSON.</p>
-
-<p>El URL que utilizaremos será <strong><a href="http://XX.XX.XX.XX:1026/v2/entities">http://XX.XX.XX.XX:1026/v2/entities</a></strong> y el tipo de encabezado será <em>application/json</em>. En Insomnia se establece automaticamente cuando seleccionamos JSON como el tipo de dato (en algunas operaciones posteriores, utilizaremos un body tipo <em>text/plain</em>).</p>
-
-<pre><code>{
-        &quot;id&quot;: &quot;Room01&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;,
-            &quot;type&quot;:&quot;text&quot;
-        },
-        &quot;temperature&quot; :{
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 23
-        }
-    }
-</code></pre>
-
-<p>En el cuerpo de la consulta, en la parte media de Insomnia, colocaremos la descripción de la entidad </p>
-
-<p><img src="../imagenes/Insomnia/In-03.png" alt="">  </p>
-
-<p>Si todo está correcto, al dar <code>Send</code> en el extremo derecho de Insomnia se debe observar el mensaje <code>201 CREATED</code> y el cuerpo de la respuesta debe estar vacío.</p>
-
-<hr>
-
-<p><strong>EJERCICIO</strong>.  Agregue otras dos entidades con los siguientes valores:</p>
-
-<ul>
-<li>Como identificador, Roomzz1, Roomzz2  <strong>(sustituya zz1 y zz2 por los caracteres que desee -por ejemplo, sus iniciales- asegurando que ningún otro equipo asigne el mismo identificador</strong>).</li>
-<li>Temp 22 y 27.3</li>
-</ul>
-
-<h4>GET</h4>
-
-<p>Para obtener información de la base de datos en el OCB se utiliza el método <strong>GET</strong>. </p>
-
-<p>En Insomnia, es posible duplicar la consulta anterior y renombrarla. Hágalo así y nombre la nueva consulta <code>obten-todas-entidades</code>. Por supuesto, debe modificar el método de POST a GET.</p>
-
-<p>Para el método GET,  sólo se especifica el URL, sin Body ni Content-type. En nuestra primer consulta pediremos todas las entidades almacenadas en el OCB hasta ahora.  Para ello, el URL que se utiliza es: <code>http://XX.XX.XX.XX:1026/v2/entities</code>: </p>
-
-<p><img src="../imagenes/Insomnia/In-GetAll.PNG" alt="&quot;Insomnia obtén todas&quot;"></p>
-
-<h5>Consulta acotada.</h5>
-
-<p>Podemos consultar una sola entidad agregando el identificador de esa entidad al final del URL.</p>
-
-<hr>
-
-<p><strong>EJERCICIO</strong>.  Agregue una nueva consulta a Insomnia. Nómbrela obten-una-entidad y modifíquela para obtener únicamente una de las entidades que usted creó. </p>
-
-<hr>
-
-<p><img src="../imagenes/Insomnia/In-ObtenUna.PNG" alt="Insomnia obten-una-entidad"></p>
-
-<p>De forma similar, a partir de la versión 2 de NGSI es posible realizar consultas (u otros métodos como PUT y DELETE) a atributos de las entidades ampliando el URL:</p>
-
-<pre><code class="javascript">GET URL/v2/entities/{entityID}/attrs/{attrName}
-</code></pre>
-
-<p>Por ejemplo, para ver el atributo &quot;temperature&quot; de la entidad Room01, se utiliza el URL <code>http://XX.XX.XX.XX:1026/v2/entities/Room01/attrs/temperature/</code>, y si se desea únicamente su valor, se extiende el URL hasta: <code>http://XX.XX.XX.XX:1026/v2/entities/Room01/attrs/temperature/value/</code>.</p>
-
-<hr>
-
-<p><strong>EJERCICIO</strong>. Agregue una nueva consulta en Insomnia. Nómbrela consulta-por-atributos y modifíquela para consultar el atributo temperature de las dos entidades que usted creó.</p>
-
-<p>Los resultados obtenidos deben ser los siguientes:</p>
-
-<pre><code class="javascript">{
-    <span class="string">"type"</span>: <span class="string">"Float"</span>,
-    <span class="string">"value"</span>: <span class="number">22</span>,
-    <span class="string">"metadata"</span>: {}
-}
-
-y
-
-<span class="number">27.3</span>
-</code></pre>
-
-<hr>
-
-<h3>Actualización de valores</h3>
-
-<p>Si deseamos actualizar los valores de los atributos de una entidad que ya se encuentra en el OCB, se utiliza el método <strong>PUT</strong>.  Cuando se actualizan los valores de varios atributos a la vez, se utiliza el URL hasta el identificador de la entidad y en el cuerpo se especifican los nuevos valores en formato JSON.</p>
-
-<p>En el siguiente ejemplo, se modificarán únicamente los valores de los atributos <em>frequency</em> y <em>current</em> de la entidad <em>Med024</em>:</p>
-
-<pre><code class="bash">Método: PUT
-{url}/v2/entities/{id}/attrs/{value}
-</code></pre>
-
-<p>Así tenemos:</p>
-
-<pre><code>http://XX.XX.XX.XX:1026/v2/entities/Room01/attrs/temperature
-Método: PUT
-Headers: Content-Type:application/json
-Body;
-
-    {
-        &quot;type&quot;: &quot;Float&quot;,
-        &quot;value&quot;: 19 
-    }
-</code></pre>
-
-<p><img src="https://i.imgur.com/4BLssjs.png" alt=""></p>
-
-<p>Para verificar el cambio se puede volver a hacer el método GET en donde veremos que el valor del atributo ha cambiado. </p>
-
-<p><img src="https://i.imgur.com/GeDoicf.png" alt=""></p>
-
-<p>Con este método, si se omite un attributo, éste desaparece de la entidad. Si lo que se desea es actualizar únicamente alguno o algunos de los atributos, el método que debe usarse es <strong>PATCH</strong>.  Por ejemplo, si sólo se desea actualizar temperature Room01, la consulta se hará así:</p>
-
-<pre><code class="bash">Método: PATCH
-URL: http://XX.XX.XX.XX:1026/v2/entities/Room01/attrs
-
-Body:
-{
-    "temperature":{
-        "value":22.2,
-        "type":"Float"
-    }
-}
-
-Header: Content-type:  application/json
-</code></pre>
-
-<p>Frecuentemente, lo que se desea es actualizar únicamente el valor de un atributo. En este caso, como se hizo anteriormente, se extiende el URL hasta {attrId}/value y en el cuerpo del mensaje se coloca el valor, especificando que el tipo de contenido es texto plano.</p>
-
-<h3>Delete</h3>
-
-<p>El método DELETE permite eliminar entidades y atributos.</p>
-
-<p>Para borrar un atributo se utiliza el comando Delete:</p>
-
-<pre><code>delete http://url:1026/v2/entities/{id}/attrs/{value}
-</code></pre>
-
-<p>Para borrar una se utiliza la siguiente expresión:</p>
-
-<pre><code>delete http://url:1026/v2/entities/{id}
-</code></pre>
-
-<p>Para probar este método, creemos una nueva entidad:</p>
-
-<pre><code class="bash">{
-  <span class="string">"id"</span>:<span class="string">"talentland"</span>,
-  <span class="string">"type"</span>:<span class="string">"prueba"</span>,
-  <span class="string">"temp"</span>:{
-    <span class="string">"value"</span>:24,
-    <span class="string">"type"</span>:<span class="string">"integer"</span>
-  },
-  <span class="string">"NumGente"</span>:{
-    <span class="string">"type"</span>:<span class="string">"integer"</span>,
-    <span class="string">"value"</span>:607
-  }
-}
-</code></pre>
-
-<hr>
-
-<p><strong>Ejercicio</strong><br>
-Verifique que la entidad fue creada (utilice la consulta obten-todas-entidades).</p>
-
-<p>Elimine la variable NumGente utilizando el comando DELETE en esta URL <code>http://XX.XX.XX.XX:1026/v2/entities/ineel/attrs/NumGente</code>.</p>
-
-<p>Verifique que la variable fue eliminada.</p>
-
-<p>Ahora elimine la entidad completa con la URL <code>http://XX.XX.XX.XX:1026/v2/entities/ineel</code>.</p>
-
-<hr>
-
-<h3>Operaciones por lotes</h3>
-
-<p>NGSIv2 tiene la función <code>Update</code> que permite crear, actualizar o borrar varias entidades en una sola invocación de un método POST.  Por supuesto, en el cuerpo del método se especifica la representación de las entidades y sus atributos. </p>
-
-<p>Hasta ahora hemos utilizado el formato JSON; en el siguiente ejemplo representaremos las entidades y atributos como tuplas key-value, lo cual se señalará con una opción en el URL.</p>
-
-<p>La representación es más corta y fácil de leer, pero se pierde riqueza semántica. Por ejemplo, ya no se puede especificar el tipo de datos de los atributos; NGSI los considerará &quot;Numeric&quot;.</p>
-
-<p>Cree una nueva consulta (nómbrela Agrega por lotes) con las siguientes características (<strong>Observe el formato especial del URL</strong>):</p>
-
-<p><strong>Por supuesto, sólo un equipo lo puede hacer con estos identificadores. Si lo desea, modifique el cuerpo asignando identificadores propios</strong></p>
-
-<pre><code>{
-    &quot;actionType&quot;:&quot;APPEND&quot;,
-    &quot;entities&quot;:[
-    {
-        &quot;id&quot;: &quot;Room02&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 26
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room03&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PA&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 30
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room04&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 19
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room05&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PA&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 16
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room06&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 12
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room07&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PA&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 18
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room08&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PA&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 25
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room09&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 15
-        }
-    },
-    {
-        &quot;id&quot;: &quot;Room10&quot;,
-        &quot;type&quot;: &quot;Room&quot;,
-        &quot;floor&quot; :{
-            &quot;value&quot;:&quot;PB&quot;
-        },
-        &quot;temperature&quot;: {
-            &quot;type&quot;: &quot;Float&quot;,
-            &quot;value&quot;: 101
-        }
-    }
-    ]
-}
-
-Header: Content-type:  application/json
-</code></pre>
-
-<p><strong>Verifique que las entidades se cargaron en el OCB</strong>.</p>
-
-<h2>OCB Simple Query Language</h2>
-
-<p>NGSI ofrece una sintaxis simplificada para filtrar información con base en algún criterio. Se pueden agregar condiciones de filtrado con el operador &quot;&amp;&quot;.  Los resultados que se devuelven son las entidades que cumplan con TODOS los criterios.</p>
-
-<p><strong>Todas las consultas se hacen con el método GET</strong></p>
-
-<p>Al realizar una consulta, el OCB entrega por default 20 entradas.  Si se desea traer más o menos, se puede agregar el parámetro <code>limit</code> al query.  También se puede especificar el parámetro <code>offset</code> para indicar a partir de qué entidad se obtendrán los resultados.</p>
-
-<p>Por ejemplo, la siguiente consulta mostrará tres entidades de tipo &quot;Room&quot; (por ahora todas nuestras entidades son de ese tipo) a partir del 5o registro y éstas se mostrarán en formato key-value:</p>
-
-<pre><code class="bash">GET http://XX.XX.XX.XX:1026/v2/entities?limit=3&amp;offset=5&amp;type=LineMeter&amp;options=keyValues
-</code></pre>
-
-<p>En el lienzo central, Insomnia tiene una pestaña de <code>query</code>.  Podemos ver en ella cómo se va formando la consulta con los parámetros agregados al URL.  Para la consulta anterior, el resultado y los campos de <code>query</code> se muestran en la siguiente figura:</p>
-
-<p><img src="../imagenes/Insomnia/In-04.png" alt=""></p>
-
-<p>Se pueden filtrar las consultas a partir del valor de algún atributo con la opción <code>q</code> (o el valor de un metadato con la opción <code>mq</code>). Por ejemplo, la siguiente consulta muestra todas las entidades en las que el atributo <code>temperature</code> es mayor a 32.5 grados.</p>
-
-<pre><code class="javascript">http:<span class="comment">//XX.XX.XX.XX:1026/v2/entities?q=temperature&gt;32.5&amp;limit=20&amp;options=keyValues</span>
-</code></pre>
-
-<p>Con el parámetro <code>attrs</code> se pueden especificar qué atributos se desea desplegar.</p>
-
-<hr>
-
-<p><strong>EJERCICIO</strong> Muestre todas las entidades en las que la temperatura excede los 28 grados. Debe mostrar únicamente la temperatura.</p>
-
-<hr>
-
-<h2>Datos geo-referenciados</h2>
-
-<p>NGSI incluye el tipo de dato <code>geo</code> para expresar atributos geométricos (geo:point, geo:box, geo:line, etcétera). En particular, el tipo <strong><code>geo:point</code></strong> se utiliza frecuentemente para representar una <em>coordenada geográfica</em>, en lugar de su representación clásica de longitud y latitud.</p>
-
-<p>En el tipo <code>geo:point</code> la ubicación se define con una tupla de dos números separados por coma.  El primero es la latitud y el segundo la longitud.  Sólo se permite la notación decimal, es decir, no se reconoce una coordenada en grados, minutos y segundos.</p>
-
-<p>Para representar una ubicación, la entidad debe tener un atributo como <em>position, coordinates, location</em>, etcétera. Se puede especificar únicamente un atributo de ubicación por entidad.</p>
-
-<p>Para este tutorial hemos definido una serie de puntos geo-referenciados dentro de la zona de Coyoacán en la Ciudad de México.  Simulan ser puntos con generadores de energía limpia.</p>
-
-<p>Con el método <code>POST</code> y la operación <code>update</code>, cargue las siguientes entidades a su OCB. (<strong>Sólo un equipo puede hacerlo</strong>).</p>
-
-<pre><code class="bash">{
- <span class="string">"actionType"</span>: <span class="string">"APPEND"</span>,
-    <span class="string">"entities"</span>: <span class="test_condition">[
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG1"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35216, -99.16053"</span>
-            }
-        },  
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG2"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35307, -99.16304"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG3"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35093, -99.16384"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG4"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34931, -99.16693"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG5"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35022, -99.15789"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG6"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34823, -99.16341"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG7"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35279, -99.16579"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG8"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35178, -99.16841"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG9"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35562, -99.15982"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG10"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35672, -99.1674"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG11"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35526, -99.16796"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG12"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34937, -99.17075"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG13"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35435, -99.15538"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG14"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35726, -99.16337"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG15"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35086, -99.15487"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG16"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34702, -99.16796"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG17"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34635, -99.15635"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG18"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34528, -99.16122"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG19"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.35706, -99.15598"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         },
-        {
-            <span class="string">"id"</span>: <span class="string">"medMG20"</span>,
-            <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-            <span class="string">"category"</span>: {
-                <span class="string">"type"</span>: <span class="string">"Text"</span>,
-                <span class="string">"value"</span>: <span class="string">"solar"</span>,
-                <span class="string">"metadata"</span>: {}
-            },
-            <span class="string">"location"</span>: {
-                <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-                <span class="string">"value"</span>: <span class="string">"19.34443, -99.15508"</span>,
-                <span class="string">"metadata"</span>: {}
-            }
-         }
-    ]</span>
-}
-
-</code></pre>
-
-<p>En la siguiente figura se muestran los puntos simulados en azúu, junto con algunos puntos de interés en naranja.</p>
-
-<p><img src="../imagenes/GeoRef/mapa1.png" alt=""></p>
-
-<p>Ahora buscaremos lugares de interés con relación a un objeto geográfico.</p>
-
-<p>Por ejemplo, en la siguiente consulta se buscarán localidades microgeneradoras que estén como máximo a 800 metros de los viveros de Coyoacán representados por el punto  <code>19.3538,-99.17208</code>.</p>
-
-<pre><code class="bash">Método: GET
-URL: http://XX.XX.XX.XX:1026/v2/entities?type=microGenerator&amp;georel=near;maxDistance:800&amp;geometry=point&amp;coords=19.3538,-99.17208 
-
-Body: Vacío
-</code></pre>
-
-<p>Se están buscando las entidades tipo &quot;microGenerator&quot; que estén como máximo 800 metros del punto especificado. El resultado son los siguientes seis puntos:</p>
-
-<p><img src="../imagenes/GeoRef/PtosInCircle.png" alt=""></p>
-
-<pre><code class="bash"><span class="test_condition">[
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG4"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.34931, -99.16693"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG7"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35279, -99.16579"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG8"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"solar"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35178, -99.16841"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG10"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35672, -99.1674"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG11"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"solar"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35526, -99.16796"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG12"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.34937, -99.17075"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    }
-]</span>
-</code></pre>
-
-<hr>
-
-<p><strong>Ejercicio</strong>. Identifique los puntos que están dentro de un radio de 600 metros del Museo Frida Kahlo.  sus coordenadas son: 19.35544, -99.16264</p>
-
-<hr>
-
-<p>En el siguiente ejemplo, haremos una geo-cerca: Buscaremos los micro-generadores que se encuentran dentro del polígono formado por: Los Viveros de Coyoacán, el Museo Frida Kahlo, y el Museo Nacional de Culturas Populares. Utilizaremos la <code>georel</code> &quot;coveredBy&quot;.  Observe que en NGSI, un polígono tiene al menos cuatro coordenadas y que la primera y la última deben ser la misma.</p>
-
-<pre><code class="bash">Método: GET
-URL: http://XX.XX.XX.XX:1026/v2/entities?type=microGenerator&amp;georel=coveredBy&amp;geometry=polygon&amp;coords=19.3538,-99.17208;19.35544, -99.16264;19.34878, -99.16248;19.3538,-99.17208
-</code></pre>
-
-<p>El resultado es el siguiente:</p>
-
-<pre><code class="bash"><span class="test_condition">[
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG2"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"solar"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35307, -99.16304"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG3"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"solar"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35093, -99.16384"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    },
-    {
-        <span class="string">"id"</span>: <span class="string">"medMG7"</span>,
-        <span class="string">"type"</span>: <span class="string">"microGenerator"</span>,
-        <span class="string">"category"</span>: {
-            <span class="string">"type"</span>: <span class="string">"Text"</span>,
-            <span class="string">"value"</span>: <span class="string">"eolic"</span>,
-            <span class="string">"metadata"</span>: {}
-        },
-        <span class="string">"location"</span>: {
-            <span class="string">"type"</span>: <span class="string">"geo:point"</span>,
-            <span class="string">"value"</span>: <span class="string">"19.35279, -99.16579"</span>,
-            <span class="string">"metadata"</span>: {}
-        }
-    }
-]</span>
-</code></pre>
-
-<p><img src="../imagenes/GeoRef/PtosInPolygon.png" alt=""></p>
-
-<h2>2.- Lector de temperatura y humedad con Arduino</h2>
-
-<h3>Introducción</h3>
-
-<p>Arduino es probablemente la plataforma de hardware abierto más popular para desarrollo y prototipado rápido de proyectos de sistemas digitales.  Ha logrado conformar una amplísima comunidad de desarrolladores que comparten las especificaciones y el código de sus proyectos.</p>
-
-<p>La plataforma tiene una serie de interfaces entrada y salida (E/S) que pueden ser programadas para monitorear (con ayuda de sensores) o interactuar (con ayuda de actuadores) con su entorno.  La Figura 1 muestra la tarjeta Arduino YÚN, que es la que se utilizará en estas prácticas. La gran ventaja de esta tarjeta es que ya tiene integrada una interfaz WiFi.</p>
-
-<p>Arduino cuenta con un ambiente de desarrollo integrado (IDE, Integrated Development Environment) para programar las acciones que se desean configurar en la placa.  Los programas (llamados sketch) escritos en el IDE se descargan a la placa a través de la interfaz USB. </p>
-
-<p>En esta sección nos familiarizaremos con el ambiente de desarrollo escribiendo programas sencillos para interactuar con la placa Arduino y, a través de ella, con algunos sensores y actuadores.</p>
-
-<p>Hay una gran variedad de sensores (por ejemplo, de temperatura, humedad, iluminación, sonido, contaminantes, nutrientes, posicionamiento, velocidad, …) y actuadores (por ejemplo, LEDs, zumbadores, relevadores, acopladores, …) que pueden conectarse a una placa Arduino a través de sus interfaces programables E/S.  </p>
-
-<p>En principio, queremos implementar una red de sensores que sean capaces de detectar condiciones de riesgo en el medio ambiente (presencia de bacterias, gases o algún contaminante) en un hospital.   </p>
-
-<p>Por supuesto, implementar esta red en condiciones reales es sumamente peligroso, por lo que nos limitaremos a trabajar con un sensor de temperatura para crear nuestra primera prueba de concepto.  A partir de ella, sería más sencillo diseñar la red de sensores hospitalaria.  Bastará con identificar los sensores de interés, configurarlos y sustituir nuestros sensores de temperatura por aquéllos.</p>
-
-<p>Materiales
-• Una placa Arduino YÚN y cable USB para conectarla a la PC
-• El software Arduino IDE
-• Una tarjeta protoboard y cables
-• Una resistencia de 4.7 kOhm
-• Sensor de temperatura y humedad DHT11</p>
-
-<h3>1. Instalación del IDE y detección de la placa Arduino</h3>
-
-<p>El IDE permite expresar un programa en un lenguaje muy parecido a C que se compila en el lenguaje de máquina del micro-controlador de la placa.   Descargue el IDE de la siguiente dirección:</p>
-
-<p><a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a></p>
-
-<p>Conecte la placa a un puerto USB de su computadora.  Se deberá encender un LED verde indicando que la placa está energizada (aproximadamente un min).</p>
-
-<ul>
-<li>Presionar el botón de Reset WLAN y mantener presionado por al menos 35 segundos </li>
-</ul>
-
-<p><img src="https://i.imgur.com/Kzb5AOl.png" alt=""></p>
-
-<ul>
-<li>Esperar un minuto.<br>
-En el IDE de Arduino:<br></li>
-<li>Ir a File -&gt; Examples -&gt; Bridge -&gt; Yun Serial Terminal.</li>
-</ul>
-
-<p><img src="https://i.imgur.com/2hBIsrl.png" alt=""></p>
-
-<ul>
-<li>Posteriormente, ir a Tools -&gt; Port y seleccionar el puerto en donde esté el Arduino Yun. </li>
-</ul>
-
-<p><img src="https://i.imgur.com/79XJIZu.png" alt=""></p>
-
-<ul>
-<li>Dar click en la flecha que se encuentra arriba al lado izquierdo y esperar a que se vea el mensaje “Done uploading” y dar click en la lupa que se encuentra arriba del lado derecho. </li>
-</ul>
-
-<p><img src="https://i.imgur.com/Edt7ZOc.png" alt=""></p>
-
-<p><img src="https://i.imgur.com/xVwt2Sc.png" alt=""></p>
-
-<ul>
-<li>En la ventana que se muestra seleccionar en el primer menú inferior “NewLine” y en el segundo menú “115200 baud”</li>
-</ul>
-
-<p><img src="https://i.imgur.com/4nG8xdd.png" alt=""></p>
-
-<ul>
-<li>En el espacio superior escribir <code>ifconfig</code>  y dar enter hasta que se muestre la dirección ip en el puerto eth1.</li>
-</ul>
-
-<p><img src="https://i.imgur.com/XqfwarK.png" alt="">
-<img src="https://i.imgur.com/4RHGTBz.png" alt=""></p>
-
-<ul>
-<li>Del comando <code>ifconfig</code> obtenemos la dirección IP que tiene asignada el Arduino. Anota esta IP porque la  utilizarás más adelante. En este caso la dirección es la <strong>177.245.225.6</strong>.</li>
-<li>Para comprobar que el Arduino esta conectado a internet poner en el espacio superior <code>ping 8.8.8.8 -c 3</code> y se debe de mostrar el mensaje que se encuentra en la parte inferior de la siguiente imagen: </li>
-</ul>
-
-<p><img src="https://i.imgur.com/9MmkqVl.png" alt=""></p>
-
-<h3>Enviar datos desde el Arduino hacia el OCB</h3>
-
-<p>Para esta sección debemos crear un nuevo sketch vacío y seguir los siguientes pasos: </p>
-
-<ul>
-<li>Debemos instalar la librería BridgeHttpClient dando click en Sketch -&gt; Include Library -&gt; Manage Libraries</li>
-</ul>
-
-<p><img src="https://i.imgur.com/ugW5uUO.png" alt=""></p>
-
-<ul>
-<li>Buscar la librería y dar click en el botón &quot;Install&quot;.</li>
-</ul>
-
-<p><img src="https://i.imgur.com/rSeDgKL.png" alt=""></p>
-
-<ul>
-<li>Posteriormente pegar el siguiente código:</li>
-</ul>
-
-<pre><code>#include &lt;Bridge.h&gt;
-#include &lt;BridgeHttpClient.h&gt;
-
-BridgeHttpClient client;
-
-void setup() {
-  pinMode(13, OUTPUT);
-  digitalWrite(13, LOW);
-  Bridge.begin(); // Initialize Bridge
-  digitalWrite(13, HIGH);
-
-  SerialUSB.begin(115200);
-  while (!SerialUSB); // wait for a serial connection
-  client.addHeader(&quot;Content-Type: application/json&quot;);
-  SerialUSB.println(&quot;Finish setup&quot;);
-}
-
-void loop() {
-  SerialUSB.println(&quot;Sending...&quot;);
-
-  client.enableInsecure(); // Using HTTPS and peer cert. will not be able to auth.
-  client.post(&quot;http://130.206.112.201:1026/v2/entities&quot;, &quot;{\&quot;id\&quot;:\&quot;RoomArduinoXXY\&quot;}&quot;);
-  SerialUSB.println(&quot;Termino&quot;);
-  while(1);
-}
-
-</code></pre>
-
-<ul>
-<li>Cargarlo al arduino y abrir el monitor serial. Para comprobar que haya funcionado se debe de obtener algo parecido a lo que se muestra en la siguiente imagen: </li>
-</ul>
-
-<p><img src="https://i.imgur.com/H56w6Ss.png" alt=""></p>
-
-<ul>
-<li>Ahora vamos a descargar dos nuevas librerías llamadas <strong>dht sensor library</strong> y <strong>adafruit unified sensor by adafruit</strong>. </li>
-<li>Creamos un nuevo sketch y pegamos el siguiente código: </li>
-</ul>
-
-<pre><code>#include &lt;DHT.h&gt;
-
-// Definimos el pin digital donde se conecta el sensor
-#define DHTPIN 2
-// Dependiendo del tipo de sensor
-#define DHTTYPE DHT11
-
-// Inicializamos el sensor DHT11
-DHT dht(DHTPIN, DHTTYPE);
-
-void setup() {
-  // Inicializamos comunicación serie
-  Serial.begin(9600);
-
-  // Comenzamos el sensor DHT
-  dht.begin();
-}
-
-void loop() {
-    // Esperamos 5 segundos entre medidas
-  delay(5000);
-
-  // Leemos la humedad relativa
-  float h = dht.readHumidity();
-  // Leemos la temperatura en grados centígrados (por defecto)
-  float t = dht.readTemperature();
-  // Leemos la temperatura en grados Fahrenheit
-  float f = dht.readTemperature(true);
-
-  // Comprobamos si ha habido algún error en la lectura
-  if (isnan(h) || isnan(t) || isnan(f)) {
-    Serial.println(&quot;Error obteniendo los datos del sensor DHT11&quot;);
-    return;
-  }
-
-  // Calcular el índice de calor en Fahrenheit
-  float hif = dht.computeHeatIndex(f, h);
-  // Calcular el índice de calor en grados centígrados
-  float hic = dht.computeHeatIndex(t, h, false);
-
-  Serial.print(&quot;Humedad: &quot;);
-  Serial.print(h);
-  Serial.print(&quot; %\t&quot;);
-  Serial.print(&quot;Temperatura: &quot;);
-  Serial.print(t);
-  Serial.print(&quot; *C &quot;);
-  Serial.print(f);
-  Serial.print(&quot; *F\t&quot;);
-  Serial.print(&quot;Índice de calor: &quot;);
-  Serial.print(hic);
-  Serial.print(&quot; *C &quot;);
-  Serial.print(hif);
-  Serial.println(&quot; *F&quot;);
-
-}
-
-</code></pre>
-
-<p><strong>¡Ahora es tu turno!</strong><br>
-Tu siguiente tarea es integrar ambas funcionalidades para lograr que el Arduino mande los datos que está leyendo de humedad y temperatura al OCB.<br>
-Para esto tendrás que:</p>
-
-<ul>
-<li>Definir el modelo de datos.</li>
-<li>Crear el JSON correspondiente a dicho modelo. </li>
-<li>Crear una entidad en el OCB correspondiete a tu modelo. </li>
-<li>Actualizar los datos desde el Arduino cada segundo.<br></li>
-</ul>
-
-<h2>4.- Fiware Lab Cloud</h2>
-
-<p>En el ecosistema de Fiware, existen nodos que nos  permiten desplegar los distintos componentes (llamados <em>Generic Enablers</em> en la nube para experimentar con esta arquitectura sin invertir en infraestructura.</p>
-
-<p>Estos nodos conforman lo que se conoce como el <strong>Fiware Lab</strong> y han sido esenciales para el crecimiento de Fiware. </p>
-
-<p>En esta sección se muestra cómo <strong>desplegar una instancia del Orion Context Broker</strong> en la nube Fiware Lab Cloud.</p>
-
-<p>Para poder desplegar una instancia en Fiware Lab se deben de seguir estos pasos: </p>
-
-<ol>
-<li>Entrar a <a href="https://cloud.lab.fiware.org/auth/login/?next=/">https://cloud.lab.fiware.org/auth/login/?next=/</a></li>
-<li>Crear una cuenta </li>
-<li>Responder al correo dejando el asunto intacto</li>
-<li>Esperar ... (lo sentimos!)</li>
-<li>Una vez que se tiene la cuenta de Fiware Lab, iniciar sesión</li>
-<li>Ir a Compute -&gt; Instances -&gt; Lanzar Instancia.</li>
-</ol>
-
-<p><img src="https://i.imgur.com/h3f4baa.png" alt=""></p>
-
-<p><strong>Introducir los siguientes datos en el formulario:</strong></p>
-
-<pre><code>* Zona de disponibilidad: Elegir la que sea.
-* Nombre de la instancia: Elegir un nombre único.
-* Sabor: small.
-* Origen de arranque de la instancia: Arrancar desde una imagen.
-* Nombre de la imagen: orion-psb-image-R5.2 (1,4 GB).
-</code></pre>
-
-<p><img src="https://i.imgur.com/Qc3Hn8D.png" alt=""></p>
-
-<p><strong>Hacer click en Lanzar.</strong></p>
-
-<p><strong>Ir a Acceso y Seguridad -&gt; Crear grupo de seguridad.</strong></p>
-
-<p><img src="https://i.imgur.com/gTwSmSg.png" alt=""></p>
-
-<p><strong>Llenar nombre y descripción.</strong></p>
-
-<p><img src="https://i.imgur.com/RTOYsn4.png" alt=""></p>
-
-<p><strong>Crear grupo de seguridad.</strong></p>
-
-<p><strong>Administrar reglas del grupo de seguridad creado.</strong></p>
-
-<p><img src="https://i.imgur.com/SFlvHrP.png" alt=""></p>
-
-<p><strong>Agregar regla y llenar el formulario con los siguientes datos:</strong></p>
-
-<p><img src="https://i.imgur.com/zMwP1LX.png" alt=""></p>
-
-<pre><code>* Regla: Regla TCP a medida.
-* Dirección: Entrante
-* Puerto abierto: Puerto
-* Puerto: 1026
-* Remoto: CIDR
-* CIDR: 0.0.0.0/0
-</code></pre>
-
-<p><strong>Hacer click en Añadir</strong></p>
-
-<p><img src="https://i.imgur.com/0Eyc2it.png" alt=""></p>
-
-<p><strong>Ir a Acceso y Seguridad -&gt; IPs flotantes -&gt; Asignar IP al proyecto.</strong> </p>
-
-<p><img src="https://i.imgur.com/0J4QfLa.png" alt=""></p>
-
-<p><strong>De la IP asignada, click en asociar</strong></p>
-
-<p><img src="https://i.imgur.com/zUu4MA0.png" alt=""></p>
-
-<p><strong>Seleccionar la instancia creada previamente y dar click en asociar</strong></p>
-
-<p><img src="https://i.imgur.com/3ZMyEVM.png" alt=""></p>
-
-<p>Después de haber hecho estos pasos estará levantado el OCB en Fiware Lab Cloud para poder ser utilizado públicamente. </p>
-
-<p><strong>¡Felicidades!</strong> Ahora se ha familiarizado con las principales funcionalidades del Componente Orion Context Broker.</p>
-
-</body>
-</html>
