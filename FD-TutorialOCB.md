@@ -207,7 +207,7 @@ El nombre sugerido para esta petición es **inserta-entidad**. La consulta tendr
 
 Si todo está correcto, al dar `Send` en el extremo derecho de Insomnia se debe observar el mensaje `201 CREATED` y el cuerpo de la respuesta debe estar vacío.
 
-![primerPost](imagenes/post1.jpg)
+![primerPost](imagenes/post1.JPG)
 
 
 
@@ -229,7 +229,7 @@ En Insomnia, es posible duplicar la consulta anterior y renombrarla. Hágalo as�
 
 Para el método GET,  sólo se especifica el URL, sin Body ni Content-type. En nuestra primer consulta pediremos todas las entidades almacenadas en el OCB hasta ahora.  Para ello, el URL que se utiliza es: `http://XX.XX.XX.XX:1026/v2/entities`: 
 
-!["Insomnia obtén todas"](imagenes/get1.jpg)
+!["Insomnia obtén todas"](imagenes/get1.JPG)
 
 #### Consultas acotadas.
 
@@ -305,7 +305,7 @@ Body:
 
 Al verificar si se realizaron los cambios, volvemos a ejecutar el método GET y veremos que **posiblemente eso NO ERA lo que esperábamos**: 
 
-<img src="imagenes/get2.jpg" alt="GetDePutMal" style="zoom:67%;" />
+<img src="imagenes/get2.JPG" alt="GetDePutMal" style="zoom:67%;" />
 
 ¡Hemos perdido el atributo *fillingLevel*! Efectivamente, con el método **PUT**, si se omite un attributo, éste desaparece de la entidad. 
 
@@ -333,7 +333,7 @@ Header: Content-type:  application/json
 
 
 
-<img src="imagenes/get3.jpg" style="zoom:50%;" />
+<img src="imagenes/get3.JPG" style="zoom:50%;" />
 
 
 
@@ -502,7 +502,7 @@ GET http://XX.XX.XX.XX:1026/v2/entities?limit=3&offset=2&type=WasteContainer&opt
 ```
 
 
-![](imagenes/get4.jpg)
+![](imagenes/get4.JPG)
 
 Se pueden filtrar las consultas a partir del valor de algún atributo con la opción `q` (o el valor de un metadato con la opción `mq`). Por ejemplo, la siguiente consulta muestra todas las entidades en las que el atributo `temperature` es mayor a 32.5 grados.
 
@@ -838,7 +838,7 @@ Con el método `POST` y la operación `update`, se han cargado las siguientes en
 
 En la siguiente figura se muestran los puntos simulados en azúl, junto con algunos puntos de interés en naranja.
 
-![](imagenes/mapa1.png)
+![](imagenes/mapa1.PNG)
 
 Ahora buscaremos lugares de interés con relación a un objeto geográfico.
 
@@ -853,7 +853,7 @@ Body: Vacío
 
 Se están buscando las entidades tipo `WasteContainer` que estén como máximo 800 metros del punto especificado. El resultado son los siguientes seis puntos:
 
-![](imagenes/PtosInCircle.png)
+![](imagenes/PtosInCircle.PNG)
 
 ```json
 [
@@ -1203,7 +1203,7 @@ El resultado es el siguiente:
 
 
 
-![](imagenes/PtosInPolygon.png)
+![](imagenes/PtosInPolygon.PNG)
 
 
 **¡Felicidades!** Ahora se ha familiarizado con las principales funcionalidades del Componente Orion Context Broker.
