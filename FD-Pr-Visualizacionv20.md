@@ -48,7 +48,7 @@ En la primera parte de esta práctica, en sustitución de la Aplicación utiliza
 
 Para esta práctica hemos lanzado un pseudo-servidor en PutsReq dando clic en el botón `Create a PutsReq`. 
 
-<img src="imagenes/PutSreq.JPG" alt="PutsReq" style="zoom:50%;" />
+<img src="imagenes/putsreq.jpg" alt="PutsReq" style="zoom:50%;" />
 
 
 
